@@ -4,10 +4,13 @@ var express = require('express');
 // declar express app
 var app = express();
 
+// Set up views
+app.set('view engine', 'ejs');
+
 // Declare routes
 
 app.get('/', (req, res)=> {
-    res.send('Hello World')
+    res.render('home')
 });
 
 // Listen on a port
