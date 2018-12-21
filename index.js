@@ -4,13 +4,22 @@ var express = require('express');
 // declar express app
 var app = express();
 
+// declare a reference to the models folder
+var db = require('./models');
+
 // Set up views
 app.set('view engine', 'ejs');
 
 // Declare routes
 
 app.get('/', (req, res)=> {
-    res.render('home')
+    db.movie.findAll()
+    .then((movieResults)=>{
+        res.render('home', {movieResults: movieResults})
+    }).catch((err)=>{
+        console.log(`Bad news bears, there's been an ${err}`);
+        res.send('Error, check your logs');
+    })
 });
 
 // Listen on a port
