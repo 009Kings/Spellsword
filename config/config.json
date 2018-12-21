@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "auth-wdi22",
+    "database": "auth-wdi",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
