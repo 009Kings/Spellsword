@@ -1,5 +1,6 @@
 // Requires
 var express = require('express');
+var layouts = require('express-ejs-layouts')
 
 // declar express app
 var app = express();
@@ -10,19 +11,19 @@ var db = require('./models');
 // Set up views
 app.set('view engine', 'ejs');
 
-// Declare routes
+// Use Middleware
+app.use(layouts);
+app.use('/', express.static('static'));
 
+// Declare routes
 app.get('/', (req, res)=> {
-    db.movie.findAll()
-    .then((movieResults)=>{
-        res.render('home', {movieResults: movieResults})
-    }).catch((err)=>{
-        console.log(`Bad news bears, there's been an ${err}`);
-        res.send('Error, check your logs');
-    })
+  res.render('home');
 });
+
+// Include any controllers
+app.use("/auth", require("./controllers/auth"));
 
 // Listen on a port
 app.listen("3000", ()=> {
-    console.log('You\'re listening to the smooth sounds of port 3000')
+    console.log('You\'re listening to the smooth sounds of port 3000 ♨︎')
 });
