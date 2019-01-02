@@ -9,6 +9,7 @@ nav a {
   font-weight: 700;
   size: 28px;
   color: #10aa8e;
+  padding: 0 10px;
 }
 
 nav a:hover {
