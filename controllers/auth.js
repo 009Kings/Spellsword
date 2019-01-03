@@ -12,12 +12,17 @@ router.get("/signup", (req, res)=>{
 })
 
 router.post("/login", (req, res)=>{
-  console.log("hello", req.body);
   res.send(req.body);
 })
 
 router.post("/signup", (req, res)=>{
-  res.send("Post to signup is working!");
+  if (req.body.password != req.body.password-check) {
+    req.flash("error", "Passwords must match");
+    res.redirect("/auth/signup");
+  } else {
+    res.send(req.body);
+  }
+  
 })
 
 // Export

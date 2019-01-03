@@ -2,6 +2,7 @@
 var express = require('express');
 var layouts = require('express-ejs-layouts');
 var parser = require("body-parser");
+var flash = require("connect-flash");
 
 // declar express app
 var app = express();
@@ -16,6 +17,7 @@ app.set('view engine', 'ejs');
 app.use(layouts);
 app.use('/', express.static('static'));
 app.use(parser.urlencoded({ extended : false}));
+app.use(flash());
 
 // Declare routes
 app.get('/', (req, res)=> {
