@@ -19,6 +19,12 @@ app.use('/', express.static('static'));
 app.use(parser.urlencoded({ extended : false}));
 app.use(flash());
 
+// Homebrew Middleware - write data to locals
+app.use(function (req, res, next){
+  res.locals.alerts = req.flash();
+  next();
+});
+
 // Declare routes
 app.get('/', (req, res)=> {
   res.render('home');
