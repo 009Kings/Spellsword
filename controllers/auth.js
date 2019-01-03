@@ -12,7 +12,8 @@ router.get("/signup", (req, res)=>{
 })
 
 router.post("/login", (req, res)=>{
-  res.send("Post to login is working!");
+  console.log("hello", req.body);
+  res.send(req.body);
 })
 
 router.post("/signup", (req, res)=>{

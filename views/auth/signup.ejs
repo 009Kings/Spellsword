@@ -2,32 +2,36 @@
 
 <!-- TODO: Email, username, firstname, lastname, password, password verification -->
 
-<div>
+<div class="row">
     <form action="/auth/signup" method="post">
-      <div>
+      <div class="row">
+        <div class="input-field col s6">
+          <label for="first-name">First Name:</label>
+          <input type="text" name="first-name" id="first-name">
+        </div>
+        <div class="input-field col s6">
+          <label for="last-name">Last Name:</label>
+          <input type="text" name="last-name" id="last-name">
+        </div>
+      </div>
+      <div class="input-field col s12">
           <label for="email">Email:</label>
-          <input type="email" name="email" id="email" placeholder="example@email.com">
+          <input type="email" name="email" id="email">
       </div>
-      <div>
+      <div class="input-field col s12">
         <label for="new-username">Username:</label>
-        <input type="text" name="new-username" id="new-username" placeholder="MrUsername98">
+        <input type="text" name="new-username" id="new-username">
       </div>
-      <div>
-        <label for="first-name">First Name:</label>
-        <input type="text" name="first-name" id="first-name" placeholder="Jane">
-      </div>
-      <div>
-        <label for="last-name">Last Name:</label>
-        <input type="text" name="last-name" id="last-name" placeholder="Johnson">
-      </div>
-      <div>
+      <div class="input-field col s12">
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password">
+        <input type="password" name="password" id="password">
       </div>
-      <div>
+      <div class="input-field col s12">
         <label for="password-check">Verify Password:</label>
-        <input type="password" name="password-check" id="password-check" placeholder="Type password again">
+        <input type="password" name="password-check" id="password-check">
       </div>
-      <input type="submit" value="Log Me In">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Sign Up
+        <i class="material-icons right">send</i>
+      </button>
     </form>
   </div>

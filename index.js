@@ -1,6 +1,7 @@
 // Requires
 var express = require('express');
-var layouts = require('express-ejs-layouts')
+var layouts = require('express-ejs-layouts');
+var parser = require("body-parser");
 
 // declar express app
 var app = express();
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs');
 // Use Middleware
 app.use(layouts);
 app.use('/', express.static('static'));
+app.use(parser.urlencoded({ extended : false}));
 
 // Declare routes
 app.get('/', (req, res)=> {
