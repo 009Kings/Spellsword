@@ -16,7 +16,7 @@ router.post("/login", (req, res)=>{
 })
 
 router.post("/signup", (req, res)=>{
-  if (req.body.password != req.body.password-check) {
+  if (req.body.password != req.body.passwordCheck) {
     req.flash("error", "Passwords must match");
     res.redirect("/auth/signup");
   } else {
