@@ -1,14 +1,18 @@
+// Load up environment variable
+require("dotenv").config();
+
 // Requires
 var express = require('express');
 var layouts = require('express-ejs-layouts');
 var parser = require("body-parser");
 var flash = require("connect-flash");
+var session = require("express-session");
 
 // declar express app
 var app = express();
 
 // declare a reference to the models folder
-var db = require('./models');
+//var db = require('./models');
 
 // Set up views
 app.set('view engine', 'ejs');
@@ -17,6 +21,11 @@ app.set('view engine', 'ejs');
 app.use(layouts);
 app.use('/', express.static('static'));
 app.use(parser.urlencoded({ extended : false}));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use(flash());
 
 // Homebrew Middleware - write data to locals
