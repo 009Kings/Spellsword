@@ -1,26 +1,31 @@
 <% if(alerts.error){ %>
   <% alerts.error.forEach((msg)=>{ %>
-<div class="row">
-  <div class="col s12 m5">
-    <div class="card-panel teal errorCard">
-      <span class="white-text">
-          <%= msg %>
-      </span>
-    <div>
-      <p class="close">Close</p>
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Uh Oh</h4>
+        <p><%= msg %></p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
     </div>
-    </div>
-    
-  </div>
-</div>
   <% }) %>
 <% } %>
 
 <script>
-  [...document.getElementsByClassName("close")].forEach(elem => {
-    elem.addEventListener("click", ()=>{
-      document.getElementsByClassName("errorCard")[0].setAttribute("class", "hide");
-    })
+  document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems, {
+    dismissable: true
   });
+  var instance = M.Modal.getInstance(elems[0]);
+  instance.open();
+});
+
+  // [...document.getElementsByClassName("close")].forEach(elem => {
+  //   elem.addEventListener("click", ()=>{
+  //     document.getElementsByClassName("errorCard")[0].setAttribute("class", "hide");
+  //   })
+  // });
 </script>
 
