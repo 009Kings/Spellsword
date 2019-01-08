@@ -43,6 +43,6 @@ app.get('/', (req, res)=> {
 app.use("/auth", require("./controllers/auth"));
 
 // Listen on a port
-app.listen("3000", ()=> {
-    console.log('You\'re listening to the smooth sounds of port 3000 ♨︎')
+app.listen("3010", ()=> {
+    console.log('You\'re listening to the smooth sounds of port 3010 ♨︎')
 });
