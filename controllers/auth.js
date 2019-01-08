@@ -20,7 +20,7 @@ router.post("/signup", (req, res)=>{
     req.flash("error", "Passwords must match");
     res.redirect("/auth/signup");
   } else {
-    res.send(req.body);
+    
   }
   
 })
