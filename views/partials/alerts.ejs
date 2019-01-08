@@ -1,4 +1,4 @@
-<% if(alerts.error){ %>
+<!-- <% if(alerts.error){ %>
   <% alerts.error.forEach((msg)=>{ %>
     <div id="modal1" class="modal">
       <div class="modal-content">
@@ -10,22 +10,58 @@
       </div>
     </div>
   <% }) %>
+<% } %> -->
+
+<% if(alerts.error) {%>
+  <div class="row errorCard">
+    <div class="col s12">
+      <div class="card red lighten-2">
+        <div class="card-content white-text">
+          <span class="card-title">Error</span>
+          <% alerts.error.forEach(function(msg){ %>
+            <p><%= msg %></p>
+          <% }); %>
+        </div>
+        <div class="card-action white-text">
+          <p class="closeable">Close</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<% if(alerts.success) {%>
+  <div class="row errorCard">
+    <div class="col s12">
+      <div class="card green lighten-4">
+        <div class="card-content green-text">
+          <span class="card-title">Success</span>
+          <% alerts.success.forEach(function(msg){ %>
+            <p><%= msg %></p>
+          <% }); %>
+        </div>
+        <div class="card-action white-text">
+          <p class="closeable">Close</p>
+        </div>
+      </div>
+    </div>
+  </div>
 <% } %>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems, {
-    dismissable: true
-  });
-  var instance = M.Modal.getInstance(elems[0]);
-  instance.open();
-});
+//   document.addEventListener('DOMContentLoaded', function() {
+//   var elems = document.querySelectorAll('.modal');
+//   var instances = M.Modal.init(elems, {
+//     dismissable: true
+//   });
+//   var instance = M.Modal.getInstance(elems[0]);
+//   instance.open();
+// });
 
-  // [...document.getElementsByClassName("close")].forEach(elem => {
-  //   elem.addEventListener("click", ()=>{
-  //     document.getElementsByClassName("errorCard")[0].setAttribute("class", "hide");
-  //   })
-  // });
+  [...document.getElementsByClassName("closeable")].forEach(elem => {
+    elem.addEventListener("click", ()=>{
+      document.getElementsByClassName("errorCard")[0].setAttribute("class", "hide");
+    })
+  });
 </script>
 
