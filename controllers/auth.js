@@ -9,7 +9,7 @@ router.get("/login", (req, res)=>{
 })
 
 router.get("/signup", (req, res)=>{
-  res.render("auth/signup");
+  res.render("auth/signup", { oldInfo: null });
 })
 
 router.post("/login", (req, res)=>{
@@ -18,16 +18,13 @@ router.post("/login", (req, res)=>{
 
 router.post("/signup", (req, res)=>{
   if (req.body.password != req.body.passwordCheck) {
-    req.flash("error", "Passwords must match");
-    res.redirect("/auth/signup");
+    res.render("auth/signup", {oldInfo: req.body, alerts: req.flash("error", "Passwords must match")})
   } else {
     console.log(req.body);
     db.user.findOrCreate({
       where: {
-        $or: [
-          {email: req.body.email},
-          {username: req.body.username }
-        ]},
+        email: req.body.email
+        },
       defaults: req.body // This works bc the forms names are the same as the names in the db
     })
     .spread((user, created)=>{
@@ -35,9 +32,7 @@ router.post("/signup", (req, res)=>{
         req.flash("success", `Success! Welcome to the krew!`);
         res.redirect("/profile");  
       } else {
-        req.flash("error", `Error! Username already in use`);
-  
-        res.redirect("/auth/signup")
+        res.render("auth/signup", {oldInfo: req.body, alerts: req.flash("error", `Error! Username already in use`)})
       }
     })
     .catch((error)=>{
@@ -51,7 +46,7 @@ router.post("/signup", (req, res)=>{
           }
         })
       }
-      res.redirect('/auth/signup');
+      res.render("auth/signup", {oldInfo: req.body, alerts: req.flash()})
     })
   }
 })
