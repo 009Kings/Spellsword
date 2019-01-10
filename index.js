@@ -39,12 +39,9 @@ app.get('/', (req, res)=> {
   res.render('home');
 });
 
-app.get('/profile', (req, res)=>{
-  res.render('profile')
-})
-
 // Include any controllers
 app.use("/auth", require("./controllers/auth"));
+app.use("/profile", require("./controllers/profiles"))
 
 // Listen on a port
 app.listen("3010", ()=> {
