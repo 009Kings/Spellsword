@@ -3,9 +3,10 @@ require("dotenv").config();
 
 // Requires
 var express = require('express');
+var flash = require("connect-flash");
 var layouts = require('express-ejs-layouts');
 var parser = require("body-parser");
-var flash = require("connect-flash");
+var passport = require('./config/passportConfig')
 var session = require("express-session");
 
 // declar express app
@@ -27,10 +28,13 @@ app.use(session({
   saveUninitialized: true,
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Homebrew Middleware - write data to locals
 app.use(function (req, res, next){
   res.locals.alerts = req.flash();
+  res.locals.user = req.user;
   next();
 });
 
