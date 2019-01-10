@@ -18,14 +18,14 @@ passport.deserializeUser(function(id, callback){
   .then(function(user){
     callback(null, user);
   }).catch(function(err){
-    console.log(`Bad news bears, something got fucked up around deserialization! ${err}`)
+    console.log(`Bad news bears, something got messed up around deserialization! ${err}`)
     callback(err, null);
   })
 })
 
 // Do the actual logging in (authentication)
+// How are we determining that they are unique?
 passport.use(new LocalStrategy({
-  // How are we determining that they are unique?
   usernameField: 'email',
   passwordField: 'password'
 }, function(email, password, callback){
@@ -38,7 +38,7 @@ passport.use(new LocalStrategy({
       callback('Invalid credentials', null);
     } else {
       // good, authorize them
-
+      callback(null, foundUser);
     };
   }).catch(callback);
   /*

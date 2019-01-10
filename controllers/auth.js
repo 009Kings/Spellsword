@@ -1,7 +1,8 @@
 // Requires
-var express = require("express");
-var router = express.Router();
 var db = require("../models");
+var express = require("express");
+var passport = require('../config/passportConfig');
+var router = express.Router();
 
 // Declare routes
 router.get("/login", (req, res)=>{
@@ -12,9 +13,13 @@ router.get("/signup", (req, res)=>{
   res.render("auth/signup", { oldInfo: null });
 })
 
-router.post("/login", (req, res)=>{
-  res.send(req.body);
-})
+// passport.authenticate("type of strategy you are useing", {options})
+router.post("/login", passport.authenticate('local', {
+  successRedirect: '/profile',
+  successFlash: 'Yay! Login Successful',
+  failureRedirect: '/auth/login',
+  failureFlash: 'Invalid Credentials, try again'
+}));
 
 router.post("/signup", (req, res)=>{
   if (req.body.password != req.body.passwordCheck) {
