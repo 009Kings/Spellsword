@@ -13,6 +13,12 @@ router.get("/signup", (req, res)=>{
   res.render("auth/signup", { oldInfo: null });
 })
 
+router.get("/logout", (req, res)=>{
+  req.logout(); //logs out of session
+  req.flash('success', 'Come back again!');
+  res.redirect('/');
+})
+
 // passport.authenticate("type of strategy you are useing", {options})
 router.post("/login", passport.authenticate('local', {
   successRedirect: '/profile',
