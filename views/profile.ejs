@@ -1,1 +1,17 @@
-<h1>Welcome to your profile!</h1>
+<h1>Welcome <%= user.firstname %></h1>
+
+<div class="row">
+  <div class="col s4">
+    <div>
+      <img src="<%= user.img %>" alt="<%= user.firstname %>'s avatar picture'">
+    </div>
+    <div>
+      <p><strong>First Name:</strong> <%= user.firstname %></p>
+      <p><strong>Last Name:</strong> <%= user.lastname %></p>
+    </div>
+  </div>
+  <div class="col s8">
+    <h3><%= user.firstname %>'s Bio</h3>
+    <p><%= user.bio %></p>
+  </div>
+</div>

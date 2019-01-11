@@ -1,13 +1,15 @@
 var express = require("express");
 var router = express.Router();
-var db = require("../models");
 
-router.get('/', (req, res) => {
+// Include a reference to my middleware
+var loggedIn = require('../middleware/loggedIn');
+
+router.get('/', loggedIn, (req, res) => {
   res.render('profile');
 });
 
-router.get('/admins', (req, res) => {
-  res.render('profile');
+router.get('/admins', loggedIn, (req, res) => {
+  res.render('admin');
 });
 
 module.exports = router;
