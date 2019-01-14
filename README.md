@@ -3,7 +3,9 @@
 ## The Origin Story
 
 Wireframes!
-![Wireframe of the Spellsword homepage on a phone](./assets/readme/wireframe-mobile-home.png "Homepage")![Wireframe of a user's profile on a phone](./assets/readme/wireframe-mobile-userprofile.png "Profile")![Wireframe of a user's spellbook on a phone](./assets/readme/wireframe-mobile-spellbook.png "Spellbook")![Wireframe of a spellcard modal on a phone](./assets/readme/wireframe-mobile-spellcard.png "Spellcard Modal")
+
+![Wireframe of the Spellsword homepage on a phone](./assets/readme/wireframe-mobile-home.png "Homepage")
+![Wireframe of a user's profile on a phone](./assets/readme/wireframe-mobile-userprofile.png "Profile")![Wireframe of a user's spellbook on a phone](./assets/readme/wireframe-mobile-spellbook.png "Spellbook")![Wireframe of a spellcard modal on a phone](./assets/readme/wireframe-mobile-spellcard.png "Spellcard Modal")
 
 ## The Paths Travelled
 
