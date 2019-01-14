@@ -1,7 +1,7 @@
 {
-  "name": "auth-boiler",
+  "name": "spellsword",
   "version": "1.0.0",
-  "description": "Boilerplate for future use",
+  "description": "A webapp that helps players organise their characters' spells in easy to access spellbooks",
   "repository": "",
   "main": "index.js",
   "scripts": {
