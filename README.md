@@ -1,27 +1,41 @@
 # SpellSword
 
+## The Origin Story
 
-6. Edit the models and corresponding migrations
-This comes with a basic user model. If you want to add or delete any information from this, do so in both the model and its corresponding migration.
+Wireframes!
+![Wireframe of the Spellsword homepage on a phone](./assets/readme/wireframe-mobile-home.png "Homepage")
 
-7. Migrate your database
+## The Paths Travelled
 
-8. If you have a .env file, you should create it and add it to your .gitignore
+Routes and controllers
 
-10. Create a new remote repo and connect to it
-Change the remote origin from the original auth to your new repo.
-* If you want to check what your remote is at now:
-```
-$git remote -v
-```
-Your repsonse should look something like this:
-```
-origin  git@github.com:009Kings/auth-boiler.git (fetch)
-origin  git@github.com:009Kings/auth-boiler.git (push)
-```
-In order to change it, create a new remote respository on git and copy the html or SSH and change your remote url
-```
-$ git remote set-url origin git@github.com:USERNAME/newRemoteRepo.git
-```
+## Scrying Eyes
 
-11. Style away! 
+Views and folders
+
+## The Great Library of Databasia
+
+Tables in the Spellsword Database
+
+## It's Not Safe to Go Alone, Take this
+
+#### Technologies used:
+
+**API:**
+* [DnD 5e API](http://www.dnd5eapi.co/)
+    (A **huge** shoutout to [Adrian Padua](http://github.com/adrpadua) for this amazing resource!)
+
+**Database:**
+* PostgreSQL
+
+**Node and Modules:**
+* express
+* bcrypt
+* body-parser
+* connect-flash
+* dotenv
+* ejs, express-ejs-layouts
+* session, express-session
+* passport, passport-local
+* pg
+* sequelize (a postgreSQL ORM)
