@@ -27,7 +27,7 @@ router.post("/login", passport.authenticate('local', {
   failureFlash: 'Invalid Credentials, try again'
 }));
 
-router.post("/signup", (req, res)=>{
+router.post("/signup", (req, res, next)=>{
   if (req.body.password != req.body.passwordCheck) {
     res.render("auth/signup", {oldInfo: req.body, alerts: req.flash("error", "Passwords must match")})
   } else {
@@ -40,8 +40,12 @@ router.post("/signup", (req, res)=>{
     })
     .spread((user, created)=>{
       if(created){
-        req.flash("success", `Success! Welcome to the krew!`);
-        res.redirect("/profile");  
+        passport.authenticate('local', {
+          successRedirect: '/profile',
+          successFlash: 'Yay! Login Successful',
+          failureRedirect: '/auth/login',
+          failureFlash: 'Invalid Credentials, try again'
+        })(req, res, next); 
       } else {
         res.render("auth/signup", {oldInfo: req.body, alerts: req.flash("error", `Error! Username already in use`)})
       }
