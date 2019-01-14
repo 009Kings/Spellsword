@@ -1,28 +1,14 @@
-<!-- <% if(alerts.error){ %>
-  <% alerts.error.forEach((msg)=>{ %>
-    <div id="modal1" class="modal">
-      <div class="modal-content">
-        <h4>Uh Oh</h4>
-        <p><%= msg %></p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-      </div>
-    </div>
-  <% }) %>
-<% } %> -->
-
 <% if(alerts.error) {%>
-  <div class="row errorCard">
-    <div class="col s12">
-      <div class="card  red darken-4">
-        <div class="card-content white-text">
-          <span class="card-title">Error</span>
+  <div class="alert-card">
+    <div class="">
+      <div class="">
+        <div class="">
+          <span class="">Error</span>
           <% alerts.error.forEach(function(msg){ %>
             <p><%= msg %></p>
           <% }); %>
         </div>
-        <div class="card-action white-text">
+        <div class="">
           <p class="closeable">Close</p>
         </div>
       </div>
@@ -31,16 +17,16 @@
 <% } %>
 
 <% if(alerts.success) {%>
-  <div class="row errorCard">
-    <div class="col s12">
-      <div class="card green lighten-4">
-        <div class="card-content green-text">
-          <span class="card-title">Success</span>
+  <div class="alert-card">
+    <div class="">
+      <div class="">
+        <div class="">
+          <span class="">Success</span>
           <% alerts.success.forEach(function(msg){ %>
             <p><%= msg %></p>
           <% }); %>
         </div>
-        <div class="card-action white-text">
+        <div class="">
           <p class="closeable">Close</p>
         </div>
       </div>
@@ -49,18 +35,9 @@
 <% } %>
 
 <script>
-//   document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.modal');
-//   var instances = M.Modal.init(elems, {
-//     dismissable: true
-//   });
-//   var instance = M.Modal.getInstance(elems[0]);
-//   instance.open();
-// });
-
   [...document.getElementsByClassName("closeable")].forEach(elem => {
     elem.addEventListener("click", ()=>{
-      document.getElementsByClassName("errorCard")[0].setAttribute("class", "hide");
+      document.getElementsByClassName("alert-card")[0].setAttribute("class", "hidden");
     })
   });
 </script>

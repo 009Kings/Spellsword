@@ -46,3 +46,5 @@ In order to change it, create a new remote respository on git and copy the html 
 ```
 $ git remote set-url origin git@github.com:USERNAME/newRemoteRepo.git
 ```
+
+11. Style away! 

@@ -22,4 +22,9 @@ input {
 
 .input {
   padding: 10px;
+
+}
+
+.hidden {
+  display: none;
 }
