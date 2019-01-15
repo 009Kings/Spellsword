@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       material: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       ritual: {
         type: Sequelize.BOOLEAN

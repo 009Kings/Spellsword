@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    material: DataTypes.STRING,
+    material: DataTypes.TEXT,
     ritual: {
       type: DataTypes.BOOLEAN,
       allowNull: false
@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   spell.associate = function(models) {
     // associations can be defined here
-    models.spell.belongsTo(models.characterClass);
+    models.spell.belongsTo(models.school);
   };
   return spell;
 };
