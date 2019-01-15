@@ -19,15 +19,24 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.TEXT,
       validate: {
-        args:[8, 20],
-        msg: 'You password must be between 8 and 20 characters long'
+        len: {
+          args:[8, 20],
+          msg: 'You password must be between 8 and 20 characters long'
+        }
       },
     },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    avatar_img: DataTypes.STRING
+    avatar_img: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: {
+          msg: 'Must be a valid Url'
+        }
+      }
+    }
   }, {
     hooks: {
       beforeCreate: function(pendingUser){
@@ -42,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     models.user.hasMany(models.spellbook);
   };
-  user.prototype.validPassword = (typedPassword)=>{
+  user.prototype.validPassword = function(typedPassword){
     return bcrypt.compareSync(typedPassword, this.password);
   }
   return user;

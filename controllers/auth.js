@@ -31,7 +31,6 @@ router.post("/signup", (req, res, next)=>{
   if (req.body.password != req.body.passwordCheck) {
     res.render("auth/signup", {oldInfo: req.body, alerts: req.flash("error", "Passwords must match")})
   } else {
-    console.log(req.body);
     db.user.findOrCreate({
       where: {
         email: req.body.email

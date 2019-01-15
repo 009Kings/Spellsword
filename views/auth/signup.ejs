@@ -3,15 +3,6 @@
 
 <div class="">
   <form action="/auth/signup" method="post">
-    <div class="">
-      <div class="">
-        <label for="firstname">First Name:</label>
-        <input type="text" name="firstname" id="firstname" value="<%= oldInfo ? oldInfo.firstname : '' %>">
-      </div>
-      <div class="">
-        <label for="lastname">Last Name:</label>
-        <input type="text" name="lastname" id="lastname" value="<%= oldInfo ? oldInfo.lastname : '' %>">
-      </div>
     </div>
     <div class="">
         <label for="email">Email:</label>
@@ -22,14 +13,8 @@
       <input type="text" name="username" id="new-username" value="<%= oldInfo ? oldInfo.username : '' %>">
     </div>
     <div class="">
-      <div class="">
-        <label for="dob">Date of Birth:</label>
-        <input type="text" name="dob" id="dob" class="datepicker"  value="<%= oldInfo ? oldInfo.dob : '' %>">
-      </div>
-      <div class="">
-        <label for="personalImg">Image Url:</label>
-        <input type="url" name="personalImg" id="personalImg"  value="<%= oldInfo ? oldInfo.personalImg : '' %>">
-      </div>
+      <label for="avatar_img">Avatar Image Url:</label>
+      <input type="url" name="avatar_img" id="avatar_img"  value="<%= oldInfo ? oldInfo.avatar_img : '' %>">
     </div>
     <div class="">
       <label for="password">Password:</label>
@@ -38,10 +23,6 @@
     <div class="">
       <label for="password-check">Verify Password:</label>
       <input type="password" name="passwordCheck" id="password-check">
-    </div>
-    <div class="">
-      <label for="bio">Bio:</label>
-      <textarea type="text" name="bio" id="bio" class=""  value="<%= oldInfo ? oldInfo.bio : '' %>"></textarea>
     </div>
     <button class="" type="submit" name="action">Sign Up</button>
   </form>
