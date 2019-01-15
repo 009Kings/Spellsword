@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   school.associate = function(models) {
     // associations can be defined here
-    models.school.hasMany(model.spell);
+    models.school.hasMany(models.spell);
   };
   return school;
 };
