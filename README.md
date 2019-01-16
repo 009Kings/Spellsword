@@ -107,13 +107,15 @@ The Old-idea was dead, to begin with. There is no doubt whatever about that. The
 
 **Monday** was spent importing my auth-boilerplate, wrangling with git, and database set up. I had to finagle my way around 'class' being a javascript thing that I cannot use. I may never stop Finagling.
 
-**Tuesday** is for finishing the database setup (adding classes and the many to many reference tables) and adding some sweet routes.
+**Tuesday** is for finishing the database setup (adding classes and the many to many reference tables) and adding some sweet routes. Until the sickness took hold, then it was for blowing my nose, taking medication, and sneezing.
+
 
 #### Sprint 2 (Wednesday and Thursday)
 ###### The Plan: 
 MVP(functionality and basic styling)
 
 ###### The Execution:
+**Wednesday** was spend making up for lost time during my sickness on Tuesday. First thing first was to debug the populating of the DB, turns out, there are some school sections of the spells that don't have the url, so I had to create a database call to create the relationship.
 
 #### Sprint 3 (Friday - Monday)
 ###### The Plan:

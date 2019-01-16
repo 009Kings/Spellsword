@@ -45,7 +45,8 @@ app.get('/', (req, res)=> {
 
 // Include any controllers
 app.use("/auth", require("./controllers/auth"));
-app.use("/profile", require("./controllers/profiles"))
+app.use("/profile", require("./controllers/profile"));
+app.use("/spells", require("./controllers/spells"));
 
 // Listen on a port
 app.listen("3010", ()=> {

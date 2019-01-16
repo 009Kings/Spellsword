@@ -9,6 +9,10 @@ router.get('/', loggedIn, (req, res) => {
   res.render('profile');
 });
 
+router.get('/spellbook/:id', (req, res)=>{
+  res.send("It's a spellbook!");
+})
+
 router.get('/admins', isAdmin, (req, res) => {
   res.render('admin');
 });
