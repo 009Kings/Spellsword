@@ -2,7 +2,10 @@ var async = require('async');
 var db = require('./models');
 var request = require('request');
 
-// TODO Populate Schools table with a request
+// TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
+
+
+// Populates schools
 request('http://www.dnd5eapi.co/api/magic-schools', (error, response, body)=>{
   if(error || response.statusCode !=200){
     console.log("Bad news bears! There's been an error in Request for the magic schools");
@@ -70,6 +73,7 @@ request('http://www.dnd5eapi.co/api/spells', (error, response, body)=>{
           spellDeets.ritual = spellDeets.ritual === "yes";
           spellDeets.concentration = spellDeets.concentration === "yes";
           schoolId = spellDeets.school.url.slice(-1);
+          console.log(schoolId);
 
           db.spell.findOrCreate({
             where: {id: spellDeets.index},
@@ -86,13 +90,13 @@ request('http://www.dnd5eapi.co/api/spells', (error, response, body)=>{
               concentration: spellDeets.concentration,
               casting_time: spellDeets.casting_time,
               level: spellDeets.level,
-              school: parseInt(schoolId, 10),
+              schoolId: parseInt(schoolId, 10),
             }
           }).spread((newSpell, created)=>{
             if (created){
               console.log("You did a bangup job creating ", newSpell.name)
             } else {
-              console.log("Rut ro, something happened in the creation! 3");
+              console.log("Spell not created");
             }
           }).then(done).catch(err=>{
             console.log("THERE'S A BIG FUCKING ERROR");
