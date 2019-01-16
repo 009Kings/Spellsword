@@ -5,6 +5,8 @@ var request = require('request');
 
 // TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
 
+
+
 // Populates Classes
 for (let i = 1; i <= 12 ; i++) {
   request('http://www.dnd5eapi.co/api/classes/'+i, (error, response, body)=>{
@@ -33,11 +35,6 @@ for (let i = 1; i <= 12 ; i++) {
     }
   })
 }
-
-// async.forEach(()=>{
-//   // Populates schools
-// }).then(()=>{
-// })
 
 
 async.series([(callback)=>{
@@ -109,40 +106,42 @@ async.series([(callback)=>{
             var higherLvl = spellDeets.higher_level ? spellDeets.higher_level.join('  ') : undefined;
             var components = spellDeets.components.join(',');
             spellDeets.ritual = spellDeets.ritual === "yes";
-            spellDeets.concentration = spellDeets.concentration === "yes";
-            var schoolId;
-            db.school.findOne({name: spellDeets.school.name}).then(school=>{
-              schoolId = school.id;
-              console.log(schoolId .green);
-            }).catch(err=>console.log(`Trouble finding the schoolId for ${spellDeets.name}` .magenta));
-            
-            //Create the actual Spell
-            db.spell.findOrCreate({
-              where: {id: spellDeets.index},
-              defaults: {
-                name: spellDeets.name,
-                desc: desc,
-                higher_level: higherLvl,
-                page: spellDeets.page,
-                range: spellDeets.range,
-                components: components,
-                material: spellDeets.material,
-                ritual: spellDeets.ritual,
-                duration: spellDeets.duration,
-                concentration: spellDeets.concentration,
-                casting_time: spellDeets.casting_time,
-                level: spellDeets.level,
-                schoolId: schoolId
-              }
-            }).spread((newSpell, created)=>{
-              if (created){
-                console.log(`You did a bangup job creating ${newSpell.name}` .cyan)
-              } else {
-                console.log("Spell not created" .black);
-              }
-            }).then(done).catch(err=>{
-              console.log(`THERE'S A BIG 'OL ERROR IN ${spellDeets.name}` .magenta);
-              console.log(err);
+
+            db.school.findOne({where: {name: spellDeets.school.name}}).then((school)=>{
+                if (!school) {
+                  console.log(`could not find school ${spellDeets.school.name}`)
+                }
+              //Create the actual Spell
+              db.spell.findOrCreate({
+                where: {id: spellDeets.index},
+                defaults: {
+                  name: spellDeets.name,
+                  desc: desc,
+                  higher_level: higherLvl,
+                  page: spellDeets.page,
+                  range: spellDeets.range,
+                  components: components,
+                  material: spellDeets.material,
+                  ritual: spellDeets.ritual,
+                  duration: spellDeets.duration,
+                  concentration: spellDeets.concentration,
+                  casting_time: spellDeets.casting_time,
+                  level: spellDeets.level,
+                  schoolId: school.id
+                }
+              }).spread((newSpell, created)=>{
+                if (created){
+                  console.log(`You did a bangup job creating ${newSpell.name}` .cyan)
+                } else {
+                  console.log("Spell not created" .black);
+                }
+              }).then(done).catch(err=>{
+                console.log(`THERE'S A BIG 'OL ERROR IN ${spellDeets.name}` .magenta);
+                console.log(err);
+              });
+            }).catch(err=>{
+              console.log(`Trouble finding the schoolId for ${spellDeets.name}` .magenta);
+              console.log(`${err}` .red);
             });
           }
         })
