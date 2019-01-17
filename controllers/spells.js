@@ -13,11 +13,25 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/:id', (req, res)=>{
+  if (req.user) {
+    console.log(`${req.user.username}` .white);
+  } else {
+    console.log(`No one is logged in` .white);
+  }
   db.spell.findOne({
     where: {id: req.params.id},
-    include: [db.school]
+    include: [db.school, db.characterclass]
   }).then(spell=>{
-    res.render("spells/showSpell", { spell : spell });
+    // Access all the spellbooks if a user is logged in
+    if (req.user) {
+      db.spellbook.findAll({
+        where: {userId: req.user.id}
+      }).then(spellbooks=>{
+        res.render("spells/showSpell", { spell : spell, spellbooks: spellbooks });
+      })
+    } else {
+      res.render("spells/showSpell", { spell : spell });
+    }
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
     console.log(err);

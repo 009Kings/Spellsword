@@ -23,7 +23,9 @@ router.get('/', loggedIn, (req, res) => {
 });
 
 router.get('/spellbook/new', loggedIn, (req, res)=>{
-  res.render('profile/create');
+  db.characterclass.findAll({order: ['id']}).then(classes=>{
+    res.render('profile/create', { classes: classes });
+  })
 })
 
 router.post('/add', loggedIn, (req, res)=>{
