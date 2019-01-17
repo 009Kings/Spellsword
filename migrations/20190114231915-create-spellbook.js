@@ -14,7 +14,10 @@ module.exports = {
       level: {
         type: Sequelize.INTEGER
       },
-      user: {
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      characterClassId: {
         type: Sequelize.INTEGER
       },
       known_spells: {

@@ -12,19 +12,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      casting_type: {
+      spellcasting: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN
       },
-      spell_change: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      spell_recharge: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      spell_url:{
+      api_reference:{
         type: Sequelize.STRING
       },
       createdAt: {

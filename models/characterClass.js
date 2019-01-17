@@ -4,21 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING
     },
-    casting_type: {
-      type: DataTypes.STRING
+    spellcasting: {
+      type: DataTypes.BOOLEAN
     },
-    spell_change: {
-      type: DataTypes.STRING
-    },
-    spell_recharge: {
-      type: DataTypes.STRING
-    },
-    class_url: {
+    api_reference: {
       type: DataTypes.STRING
     }
   }, {});
   characterClass.associate = function(models) {
     // associations can be defined here
+    models.characterClass.hasMany(models.spellbook);
   };
   return characterClass;
 };
