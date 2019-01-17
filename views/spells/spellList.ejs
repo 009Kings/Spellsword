@@ -1,1 +1,7 @@
 <h1>Show all spells!</h1>
+
+<ul>
+  <% spells.forEach(spell=>{ %>
+    <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+  <% }) %>
+</ul>

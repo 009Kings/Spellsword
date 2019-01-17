@@ -1,1 +1,21 @@
-<h1>Show this Spell!</h1>
+<h1><%= spell.name %></h1>
+<% if(spell.level > 0){ %>
+  <h3>Level <%= spell.level %> <%= spell.school.name %></h3>
+<% } else { %>
+    <h3><%= spell.school.name %> Cantrip</h3>
+<% } %>
+<% if(spell.ritual){ %>
+  <p><em>Ritual</em></p>
+<% }%>
+
+<p><strong>Casting Time: </strong> <%= spell.casting_time%></p>
+<p><strong>Duration: </strong> <%= spell.duration %><% if(spell.concentration){ %>, <em>Concentration</em>
+<% } %></p>
+<p><strong>Components: </strong> <%= spell.components %> <% if(spell.material){ %>
+  (<%= spell.material %>)
+<% } %></p>
+<p><strong>Range: </strong><%= spell.range %></p>
+<p><%= spell.desc %></p>
+<% if(spell.higher_level){ %>
+  <p><%= spell.higher_level %></p>
+<% } %>
