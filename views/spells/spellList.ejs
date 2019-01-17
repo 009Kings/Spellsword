@@ -2,6 +2,6 @@
 
 <ul>
   <% spells.forEach(spell=>{ %>
-    <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+    <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a> <span><button type="submit">Add to a Spellbook!</button></span></li>
   <% }) %>
 </ul>
