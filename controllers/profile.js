@@ -6,15 +6,20 @@ var loggedIn = require('../middleware/loggedIn');
 var isAdmin = require('../middleware/isAdmin');
 
 router.get('/', loggedIn, (req, res) => {
-  res.render('profile');
+  res.render('profile/profile');
 });
 
-router.get('/spellbook/:id', (req, res)=>{
-  res.send("It's a spellbook!");
+router.get('/spellbook/new', (req, res)=>{
+  res.render('profile/create');
 })
 
+router.get('/spellbook/:id', (req, res)=>{
+  res.render('profile/showSpellbook');
+})
+
+
 router.get('/admins', isAdmin, (req, res) => {
-  res.render('admin');
+  res.render('profile/admin');
 });
 
 module.exports = router;
