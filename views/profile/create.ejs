@@ -7,9 +7,9 @@
   <input type="number" name="level" id="level">
   <label for="characterclass">Class: </label>
   <select name="characterclass" id="characterclass">
-    <% classes.forEach(characterclass=>{ %>
-      <option value="<%= characterclass.id %>"><%= characterclass.name %></option>
-    <% }) %>
+  <% classes.forEach(characterclass=>{ %>
+    <option value="<%= characterclass.name %>"><%= characterclass.name %></option>
+  <% }) %>
   </select>
   <input type="submit" value="Create Character!">
 </form>

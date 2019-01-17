@@ -60,21 +60,28 @@ router.post('/add', loggedIn, (req, res)=>{
           if (!newSpellbook) {
             console.log(`Error creating ${req.body.name}`);
           }
+          res.redirect('/profile');
         }).catch(error=>{
           console.log('Check out that error creating a spellbook' .red);
           console.log(error);
-        })
+        }) 
       }).catch(error=>{
         console.log('Check out that error finding a character class!' .red);
         console.log(error);
       })
-    }
-  })
-  res.redirect('/profile');
+    } // End of the Request Else
+  }) // End of the request
+  
 })
 
 router.get('/spellbook/:id', loggedIn, (req, res)=>{
-  res.render('profile/showSpellbook');
+  db.spellbook.findOne({
+    where: {id: req.params.id},
+    include: [db.characterclass, db.spell]
+  }).then(spellbook=>{
+    console.log(spellbook.spell);
+    res.render('profile/showSpellbook', { spellbook: spellbook });
+  })
 })
 
 

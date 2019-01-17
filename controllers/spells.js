@@ -3,13 +3,35 @@ var express = require("express");
 var router = express.Router();
 
 router.get('/', (req, res)=>{
+  // if (req.query.nameSearch){
+  //   db.spell.findAll({
+  //     where: {
+  //       name: {
+  //         [Op.iLike]: 
+  //       }
+  //     }
+  //   })
+  // }
   db.spell.findAll().then((spells)=>{
-    res.render("spells/spellList", {spells: spells});
+      res.render("spells/spellList", {spells: spells});
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
     console.log(err);
     res.render("error");
   })
+})
+
+// if (nameFilter) {
+//   var filteredData = dinoData.filter((dino)=>{
+//       return dino.name.toLowerCase() === nameFilter.toLowerCase();
+//   });
+//   res.render(`dinosaurs/index`, {myDinos: filteredData})
+// } else {
+//   res.render(`dinosaurs/index`, {myDinos: dinoData})
+// }
+
+router.get('/filter', (req, res)=>{
+  
 })
 
 router.get('/:id', (req, res)=>{

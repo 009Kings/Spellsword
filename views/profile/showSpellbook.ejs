@@ -1,1 +1,82 @@
-<h1>It's a spellbook for CharacterName!</h1>
+<h1>Spellbook for <%= spellbook.name %></h1>
+<h3>Level <%= spellbook.level %> <%= spellbook.characterclass.name %></h3>
+
+<p>Spells Known: <%= spellbook.spells_known %></p>
+
+<h4>Cantrips <span>Known: <%= spellbook.cantrips_known %></span></h4>
+<a href="/spells">Add Spells</a>
+<ul>
+</ul>
+<hr>
+
+<h4>Level 1 <span>Slots: <%= spellbook.level_1_slots %></span></h4>
+<a href="/spells">Add Spells</a>
+<ul>
+</ul>
+<hr>
+
+<% if (spellbook.level_2_slots > 0) { %>
+  <h4>Level 2 <span>Slots: <%= spellbook.level_2_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+<% if (spellbook.level_3_slots > 0) { %>
+  <h4>Level 3 <span>Slots: <%= spellbook.level_3_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+
+<% if (spellbook.level_4_slots > 0) { %>
+  <h4>Level 4 <span>Slots: <%= spellbook.level_4_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+<% if (spellbook.level_5_slots > 0) { %>
+  <h4>Level 5 <span>Slots: <%= spellbook.level_5_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+<% if (spellbook.level_6_slots > 0) { %>
+  <h4>Level 6 <span>Slots: <%= spellbook.level_6_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+<% if (spellbook.level_7_slots > 0) { %>
+  <h4>Level 7 <span>Slots: <%= spellbook.level_7_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+<% if (spellbook.level_8_slots > 0) { %>
+  <h4>Level 8 <span>Slots: <%= spellbook.level_8_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
+
+
+<% if (spellbook.level_9_slots > 0) { %>
+  <h4>Level 9 <span>Slots: <%= spellbook.level_9_slots %></span></h4>
+  <a href="/spells">Add Spells</a>
+  <ul>
+  </ul>
+  <hr>
+<% }%>
