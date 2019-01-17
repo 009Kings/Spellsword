@@ -6,54 +6,55 @@ var request = require('request');
 // TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
 
 
-// Populates Classes
-for (let i = 1; i <= 12 ; i++) {
-  request('http://www.dnd5eapi.co/api/classes/'+i, (error, response, body)=>{
-    if(error || response.statusCode !=200){
-      console.log(`Bad news bears! There's been an error in Request for the class ${i}` .magenta);
-      console.log(error);
-    } else {
-      results = JSON.parse(body);
-      if (results.spellcasting) {
-        // Create Spellcasting class
-        db.characterClass.findOrCreate({
-          where: {id: results.index}, 
-          defaults: {
-            name: results.name,
-            spellcasting: true,
-            api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
-          }
-        }).spread((newClass, created)=>{
-          if (!created) {
-            console.log(`There was a problem creating ${newClass.name}` .magenta);
-          }
-        }).catch(err=>{
-          console.log(`Error in class creation!`);
-          console.log(err .red);
-        })
-      } else {
-        // Create Regular class
-        db.characterClass.findOrCreate({
-          where: {id: results.index}, 
-          defaults: {
-            name: results.name,
-            spellcasting: false,
-            api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
-          }
-        }).spread((newClass, created)=>{
-          if (!created) {
-            console.log(`There was a problem creating ${newClass.name}` .magenta);
-          }
-        }).catch(err=>{
-          console.log(`Error in class creation!`);
-          console.log(err .red);
-        })
-      }
-    }
-  });
-}
 
 async.series([(callback)=>{
+  // Populates Classes
+  for (let i = 1; i <= 12 ; i++) {
+    request('http://www.dnd5eapi.co/api/classes/'+i, (error, response, body)=>{
+      if(error || response.statusCode !=200){
+        console.log(`Bad news bears! There's been an error in Request for the class ${i}` .magenta);
+        console.log(error);
+      } else {
+        results = JSON.parse(body);
+        if (results.spellcasting) {
+          // Create Spellcasting class
+          db.characterClass.findOrCreate({
+            where: {id: results.index}, 
+            defaults: {
+              name: results.name,
+              spellcasting: true,
+              api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
+            }
+          }).spread((newClass, created)=>{
+            if (!created) {
+              console.log(`There was a problem creating ${newClass.name}` .magenta);
+            }
+          }).catch(err=>{
+            console.log(`Error in class creation!`);
+            console.log(err .red);
+          })
+        } else {
+          // Create Regular class
+          db.characterClass.findOrCreate({
+            where: {id: results.index}, 
+            defaults: {
+              name: results.name,
+              spellcasting: false,
+              api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
+            }
+          }).spread((newClass, created)=>{
+            if (!created) {
+              console.log(`There was a problem creating ${newClass.name}` .magenta);
+            }
+          }).catch(err=>{
+            console.log(`Error in class creation!`);
+            console.log(err .red);
+          })
+        }
+      }
+    });
+  } callback(null, 'characterClasses')
+}, (callback)=>{
   request('http://www.dnd5eapi.co/api/magic-schools', (error, response, body)=>{
     if(error || response.statusCode !=200){
       console.log("Bad news bears! There's been an error in Request for the magic schools" .magenta);
@@ -145,6 +146,7 @@ async.series([(callback)=>{
                   schoolId: school.id
                 }
               }).spread((newSpell, created)=>{
+                console.log(`${spellDeets.class}` .magenta);
                 if (created){
                   console.log(`You did a bangup job creating ${newSpell.name}` .cyan)
                 } else {

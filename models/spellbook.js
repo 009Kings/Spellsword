@@ -68,6 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     models.spellbook.belongsTo(models.user);
     models.spellbook.belongsTo(models.characterClass);
+    models.spellbook.belongsToMany(models.spell, { through: 'spellSpellbook' });
   };
   return spellbook;
 };

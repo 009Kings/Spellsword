@@ -25,4 +25,23 @@ router.get('/:id', (req, res)=>{
   })
 })
 
+// router.post('/add', (req, res) => {
+//   db.spell.findOrCreate({
+//     where: {},
+//     defaults: {
+
+//     }
+//   }).spread((spell, created)=>{
+//     // Associate place with traveller
+//     db.spellbook.findById(req.body.spellbookId)
+//     .then((spellbook)=>{
+//       spell.addSpellbook(spellbook)
+//       .then((spellbook)=>{
+//         console.log("association happened!")
+//       }).catch((err)=>console.log("Ass didn't happen"));
+//     }).catch(err=>console.log("Problem with the ass"))
+//     res.redirect("/profile")
+//   }).catch((err)=>console.log("You done fucked up", err))
+// });
+
 module.exports = router;
