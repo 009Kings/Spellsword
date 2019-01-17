@@ -9,6 +9,7 @@ var loggedIn = require('../middleware/loggedIn');
 var isAdmin = require('../middleware/isAdmin');
 
 router.get('/', loggedIn, (req, res) => {
+  // TODO: include Character Class?
   db.user.findOne({
     where: {email: req.user.email},
     include: [db.spellbook]
@@ -16,8 +17,8 @@ router.get('/', loggedIn, (req, res) => {
     //console.log(user.spellbooks .magenta)
     res.render('profile/profile', { user: user });
   }).catch(err=>{
-    console.log(`Bad news bears, there's an error!` .magenta);
-    console.log(err.message());
+    console.log(`Bad news bears, there's an error in the profile main!` .magenta);
+    console.log(err);
   })
 });
 
@@ -59,11 +60,11 @@ router.post('/add', loggedIn, (req, res)=>{
           }
         }).catch(error=>{
           console.log('Check out that error creating a spellbook' .red);
-          console.log(error.message());
+          console.log(error);
         })
       }).catch(error=>{
         console.log('Check out that error finding a character class!' .red);
-        console.log(error.message());
+        console.log(error);
       })
     }
   })

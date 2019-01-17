@@ -7,7 +7,10 @@
     </div>
   </div>
   <div class="">
-    <h3><%= user.username %> has  Spellbooks</h3>
-    <p>SPELLBOOKS</p>
+    <h3><%= user.username %> Spellbooks</h3>
+    <% user.spellbooks.forEach(spellbook=>{ %>
+      <p><a href="/profile/spellbook/<%= spellbook.id %>"><%= spellbook.name %></a></p>
+      <p>Level <%= spellbook.level %> <%= spellbook.characterClassesId %></p>
+    <% })%>
   </div>
 </div>
