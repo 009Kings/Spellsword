@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const characterClass = sequelize.define('characterClass', {
+  const characterclass = sequelize.define('characterclass', {
     name: {
       type: DataTypes.STRING
     },
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   }, {});
-  characterClass.associate = function(models) {
+  characterclass.associate = function(models) {
     // associations can be defined here
-    models.characterClass.hasMany(models.spellbook);
-    models.characterClass.belongsToMany(models.spells, { through: 'spellCharacterClass' })
+    models.characterclass.hasMany(models.spellbook);
+    models.characterclass.belongsToMany(models.spell, { through: 'spellCharacterclass' })
   };
-  return characterClass;
+  return characterclass;
 };

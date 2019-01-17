@@ -1,11 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const spellCharacterClass = sequelize.define('spellCharacterClass', {
+  const spellCharacterclass = sequelize.define('spellCharacterclass', {
     spellId: DataTypes.INTEGER,
-    characterClassId: DataTypes.INTEGER
+    characterclassId: DataTypes.INTEGER
   }, {});
-  spellCharacterClass.associate = function(models) {
+  spellCharacterclass.associate = function(models) {
     // associations can be defined here
   };
-  return spellCharacterClass;
+  return spellCharacterclass;
 };

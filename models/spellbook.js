@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       references: 'user',
       referencesKey: 'id'
     },
-    characterClassId: {
+    characterclassId: {
       type: DataTypes.INTEGER,
-      references: 'characterClass',
+      references: 'characterclass',
       referencesKey: 'id'
     },
     known_spells: {
@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
   spellbook.associate = function(models) {
     // associations can be defined here
     models.spellbook.belongsTo(models.user);
-    models.spellbook.belongsTo(models.characterClass);
+    models.spellbook.belongsTo(models.characterclass);
     models.spellbook.belongsToMany(models.spell, { through: 'spellSpellbook' });
   };
   return spellbook;

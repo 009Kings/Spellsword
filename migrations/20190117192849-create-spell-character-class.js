@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('spellCharacterClasses', {
+    return queryInterface.createTable('spellCharacterclasses', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
       spellId: {
         type: Sequelize.INTEGER
       },
-      characterClassId: {
+      characterclassId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('spellCharacterClasses');
+    return queryInterface.dropTable('spellCharacterclasses');
   }
 };

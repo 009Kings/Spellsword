@@ -6,9 +6,9 @@ var request = require('request');
 // TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
 
 
-
 async.series([(callback)=>{
   // Populates Classes
+  // TODO REFACTOR THIS
   for (let i = 1; i <= 12 ; i++) {
     request('http://www.dnd5eapi.co/api/classes/'+i, (error, response, body)=>{
       if(error || response.statusCode !=200){
@@ -16,45 +16,31 @@ async.series([(callback)=>{
         console.log(error);
       } else {
         results = JSON.parse(body);
-        if (results.spellcasting) {
-          // Create Spellcasting class
-          db.characterClass.findOrCreate({
-            where: {id: results.index}, 
-            defaults: {
-              name: results.name,
-              spellcasting: true,
-              api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
-            }
-          }).spread((newClass, created)=>{
-            if (!created) {
-              console.log(`There was a problem creating ${newClass.name}` .magenta);
-            }
-          }).catch(err=>{
-            console.log(`Error in class creation!`);
-            console.log(err .red);
-          })
-        } else {
-          // Create Regular class
-          db.characterClass.findOrCreate({
-            where: {id: results.index}, 
-            defaults: {
-              name: results.name,
-              spellcasting: false,
-              api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
-            }
-          }).spread((newClass, created)=>{
-            if (!created) {
-              console.log(`There was a problem creating ${newClass.name}` .magenta);
-            }
-          }).catch(err=>{
-            console.log(`Error in class creation!`);
-            console.log(err .red);
-          })
-        }
-      }
-    });
-  } callback(null, 'characterClasses')
-}, (callback)=>{
+        spellClass = results.spellcasting ? true : false;
+
+        // Create Spellcasting class
+        db.characterclass.findOrCreate({
+          where: {id: results.index}, 
+          defaults: {
+            name: results.name,
+            spellcasting: spellClass,
+            api_reference: 'http://www.dnd5eapi.co/api/classes/'+i
+          }
+        }).spread((newClass, created)=>{
+          if (!created) {
+            console.log(`There was a problem creating ${newClass.name}` .magenta);
+          }
+        }).catch(err=>{
+          console.log(`Error in class creation!`);
+          console.log(err .red);
+        })
+      } // End of the Request Else
+    }); // End of Request
+  } // End of For loop
+  console.log(`Character Classes Created!` .white)
+  callback(null, 'characterclasses')
+}, // End of First Callback
+(callback)=>{
   request('http://www.dnd5eapi.co/api/magic-schools', (error, response, body)=>{
     if(error || response.statusCode !=200){
       console.log("Bad news bears! There's been an error in Request for the magic schools" .magenta);
@@ -81,7 +67,9 @@ async.series([(callback)=>{
               if (!created) {
                 console.log(`School ${newSchool.name} was not created` .magenta)
               }
-            }).then(done).catch(err=>{
+            }).then(()=>{
+              done();
+            }).catch(err=>{
               console.log(`THERE'S A BIG 'OL ERROR IN ${schoolDeets.name}` .magenta);
               console.log(err);
             });
@@ -93,12 +81,14 @@ async.series([(callback)=>{
           console.log(err);
         } else {
           console.log("first async Done!" .white);
+          console.log(`Magic school Creation complete` .white);
+          callback(null, 'schools');
         }
-      })
-    }
-  })
-  callback(null, 'schools');
-}, (callback)=>{
+      }) // End of async.foreach
+    } // End of the Request Else
+  }) // End of the Request
+}, // End of the fist callback
+(callback)=>{
   // Calls the spell Api, creates an array of the spell objects.
   request('http://www.dnd5eapi.co/api/spells', (error, response, body)=>{
     if(error || response.statusCode !=200){
@@ -145,14 +135,22 @@ async.series([(callback)=>{
                   level: spellDeets.level,
                   schoolId: school.id
                 }
-              }).spread((newSpell, created)=>{
-                console.log(`${spellDeets.class}` .magenta);
+              }).spread((spell, created)=>{
+                spellDeets.classes.forEach(characterClass=>{
+                  db.characterclass.findOne({
+                    where: {name: characterClass.name}
+                  }).then(characterClass=>{
+                    spell.addCharacterclass(characterClass);
+                  }).catch(err=>console.log(`Error in associating ${characterClass} and ${spell.name}` .red))
+                });
                 if (created){
-                  console.log(`You did a bangup job creating ${newSpell.name}` .cyan)
+                  console.log(`You did a bangup job creating ${spell.name}` .cyan)
                 } else {
                   console.log("Spell not created" .black);
                 }
-              }).then(done).catch(err=>{
+              }).then(()=>{
+                done();
+              }).catch(err=>{
                 console.log(`THERE'S A BIG 'OL ERROR IN ${spellDeets.name}` .magenta);
                 console.log(err);
               });
@@ -168,11 +166,13 @@ async.series([(callback)=>{
           console.log(err);
         } else {
           console.log("second async Done!" .white);
+          console.log(`Spells were created` .white)
+          callback(null, 'spells');
         }
-      });
-    }
-  });
-  callback(null, 'spells');
-}], (err, results)=>{
-  console.log(results .green);
+      }); // End of Async forEach
+    } // End of Request else
+  }); // End of the Request
+}], // End of final series function and end of series function arrays 
+(err, results)=>{
+  console.log(`${results}` .green);
 })

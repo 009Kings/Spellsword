@@ -27,7 +27,7 @@ router.get('/spellbook/new', loggedIn, (req, res)=>{
 })
 
 router.post('/add', loggedIn, (req, res)=>{
-  request(`http://www.dnd5eapi.co/api/classes/${req.body.characterClass.toLowerCase()}/level/${req.body.level}`, (error, response, body)=>{
+  request(`http://www.dnd5eapi.co/api/classes/${req.body.characterclass.toLowerCase()}/level/${req.body.level}`, (error, response, body)=>{
     if(error || response.statusCode !=200){
       console.log(`Bad news bears! There's been an error in Request for the class ${i}` .magenta);
       console.log(error);
@@ -35,14 +35,14 @@ router.post('/add', loggedIn, (req, res)=>{
       results = JSON.parse(body);
       
       // Find the class to create a correlation
-      db.characterClass.findOne({ where: { name: req.body.characterClass }}).then((characterClass)=>{
+      db.characterclass.findOne({ where: { name: req.body.characterclass }}).then((characterclass)=>{
 
         // Create a Spellbook with the character class reference!
         db.spellbook.create({
           name: req.body.name,
           level: req.body.level,
           userId: req.user.id,
-          characterClassId: characterClass.id,
+          characterclassId: characterclass.id,
           known_spells: results.spellcasting.spells_known,
           cantrips_known: results.spellcasting.cantrips_known,
           level_1_slots: results.spellcasting.spell_slots_level_1,

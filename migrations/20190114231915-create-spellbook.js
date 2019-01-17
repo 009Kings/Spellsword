@@ -17,7 +17,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      characterClassId: {
+      characterclassId: {
         type: Sequelize.INTEGER
       },
       known_spells: {

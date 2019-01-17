@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
   spell.associate = function(models) {
     // associations can be defined here
     models.spell.belongsTo(models.school);
-    models.spell.belongsToMany(models.characterClass, { through: 'spellCharacterClass' });
+    models.spell.belongsToMany(models.characterclass, { through: 'spellCharacterclass' });
     models.spell.belongsToMany(models.spellbook, { through: 'spellSpellbook' });
   };
   return spell;
