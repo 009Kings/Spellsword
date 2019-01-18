@@ -25,7 +25,7 @@
 <% }) %>
 
 <% if(user && spellbookNum > 0){ %>
-  <% if(spellbooks > 0){ %>
+  <% if(spellbooks.length > 0){ %>
     <form action="/profile/spellbook/add" method="post">
       <select name="spellbookId" id="spellbookId">
         <% spellbooks.forEach(spellbook=>{ %> 

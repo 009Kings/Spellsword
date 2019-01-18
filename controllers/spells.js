@@ -1,6 +1,7 @@
 var db = require("../models");
 var express = require("express");
 var router = express.Router();
+var async = require('async');
 
 router.get('/', (req, res)=>{
   db.spell.findAll().then((spells)=>{
@@ -33,12 +34,17 @@ router.get('/:id', (req, res)=>{
       }).then(spellbooks=>{
         // Creates an array of relevant spellbooks
         var relevantSpellbooks = [];
-        spellbooks.forEach(spellbook=>{
-          if(spellbook[`level_${spell.level}_slots`] > 0){
-            relevantSpellbooks.push(spellbook);
-          }
-        })
-        res.render("spells/showSpell", { spell : spell, spellbookNum: spellbooks.length, spellbooks: relevantSpellbooks });
+        async.series([(callback)=>{
+          spellbooks.forEach(spellbook=>{
+            if(spellbook[`level_${spell.level}_slots`] > 0){
+              relevantSpellbooks.push(spellbook);
+            }
+          })
+          callback(null, 'relevantSpellbooks Done');
+        }, (callback)=>{
+          res.render("spells/showSpell", { spell : spell, spellbookNum: spellbooks.length, spellbooks: relevantSpellbooks });
+          callback(null, 'rendering Done')
+        }])
       })
     } else {
       res.render("spells/showSpell", { spell : spell });
