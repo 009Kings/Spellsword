@@ -5,20 +5,19 @@ require("dotenv").config();
 var express = require('express');
 var flash = require("connect-flash");
 var layouts = require('express-ejs-layouts');
+var methodOverride= require('method-override');
 var parser = require("body-parser");
-var passport = require('./config/passportConfig')
+var passport = require('./config/passportConfig');
 var session = require("express-session");
 
 // declar express app
 var app = express();
 
-// declare a reference to the models folder
-//var db = require('./models');
-
 // Set up views
 app.set('view engine', 'ejs');
 
 // Use Middleware
+app.use(methodOverride('_method'));
 app.use(layouts);
 app.use('/', express.static('static'));
 app.use(parser.urlencoded({ extended : false}));

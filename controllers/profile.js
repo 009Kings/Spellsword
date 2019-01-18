@@ -98,6 +98,17 @@ router.get('/spellbook/:id', loggedIn, (req, res)=>{
   })
 })
 
+router.delete('/spellbook', loggedIn, (req, res)=>{
+  db.spellbook.destroy({
+    where: { id: req.body.spellbookId }
+  }).then(deletedSpellbook=>{
+    res.redirect('/profile');
+  }).catch(err=>{
+    console.log(`There's an error deleting!` .red);
+    console.log(err);
+  })
+})
+
 router.get('/admins', isAdmin, (req, res) => {
   res.render('profile/admin');
 });

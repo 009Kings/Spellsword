@@ -80,3 +80,8 @@
   </ul>
   <hr>
 <% }%>
+
+<form action="/profile/spellbook/?_method=DELETE" method="post">
+  <input type="hidden" name="spellbookId" value="<%= spellbook.id %>">
+  <input type="submit" value="Delete this Character">
+</form>
