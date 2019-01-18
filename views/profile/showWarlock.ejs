@@ -3,6 +3,8 @@
 
 <p>Spells Known: <%= spellbook.known_spells %></p>
 
+<p>Spell Slots: <%= spellbook[`level_${warlockMax}_slots`] %> <em>(at Level <%= warlockMax%>)</em></p>
+
 <h4>Cantrips <span>Known: <%= spellbook.cantrips_known %></span></h4>
 <a href="/spells">Add Spells</a>
 <ul>
@@ -14,7 +16,7 @@
 </ul>
 <hr>
 
-<h4>Level 1 <span>Slots: <%= spellbook.level_1_slots %></span></h4>
+<h4>Level 1</h4>
 <a href="/spells">Add Spells</a>
 <ul>
   <% spellbook.spells.forEach(spell=>{ %>
@@ -25,8 +27,8 @@
 </ul>
 <hr>
 
-<% if (spellbook.level_2_slots > 0) { %>
-  <h4>Level 2 <span>Slots: <%= spellbook.level_2_slots %></span></h4>
+<% if ( 2 <= warlockMax) { %>
+  <h4>Level 2</h4>
   <a href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
@@ -38,8 +40,8 @@
   <hr>
 <% }%>
 
-<% if (spellbook.level_3_slots > 0) { %>
-  <h4>Level 3 <span>Slots: <%= spellbook.level_3_slots %></span></h4>
+<% if (3 <= warlockMax) { %>
+  <h4>Level 3</h4>
   <a href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
@@ -49,11 +51,11 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
 
-<% if (spellbook.level_4_slots > 0) { %>
-  <h4>Level 4 <span>Slots: <%= spellbook.level_4_slots %></span></h4>
+<% if (4 <= warlockMax) { %>
+  <h4>Level 4</h4>
   <a href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
@@ -63,10 +65,10 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
-<% if (spellbook.level_5_slots > 0) { %>
-  <h4>Level 5 <span>Slots: <%= spellbook.level_5_slots %></span></h4>
+<% if (5 <= warlockMax) { %>
+  <h4>Level 5</h4>
   <a href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
@@ -76,11 +78,12 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
-<% if (spellbook.level_6_slots > 0) { %>
-  <h4>Level 6 <span>Slots: <%= spellbook.level_6_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+<% if (spellbook.level >= 11) { %>
+  <h4><em>Mystic Arcanum</em></h4>>
+  <h4>Level 6</h4>
+  <a href="/spells">Add Spell</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 6){ %>
@@ -89,11 +92,12 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
-<% if (spellbook.level_7_slots > 0) { %>
-  <h4>Level 7 <span>Slots: <%= spellbook.level_7_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+<% if (spellbook.level >= 13) { %>
+  <h4><em>Mystic Arcanum</em></h4>>
+  <h4>Level 7</h4>
+  <a href="/spells">Add Spell</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 7){ %>
@@ -102,11 +106,12 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
-<% if (spellbook.level_8_slots > 0) { %>
-  <h4>Level 8 <span>Slots: <%= spellbook.level_8_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+<% if (spellbook.level >= 15) { %>
+  <h4><em>Mystic Arcanum</em></h4>
+  <h4>Level 8</h4>
+  <a href="/spells">Add Spell</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 8){ %>
@@ -115,12 +120,13 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
 
-<% if (spellbook.level_9_slots > 0) { %>
-  <h4>Level 9 <span>Slots: <%= spellbook.level_9_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+<% if (spellbook.level >= 17) { %>
+  <h4><em>Mystic Arcanum</em></h4>
+  <h4>Level 9</h4>
+  <a href="/spells">Add Spell</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 9){ %>
@@ -129,7 +135,7 @@
     <% }) %>
   </ul>
   <hr>
-<% }%>
+<% } %>
 
 <form action="/profile/spellbook/?_method=DELETE" method="post">
   <input type="hidden" name="spellbookId" value="<%= spellbook.id %>">

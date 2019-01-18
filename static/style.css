@@ -25,6 +25,10 @@ input {
 
 }
 
+.disabled{
+  color: rgb(94, 74, 97);
+}
+
 .hidden {
   display: none;
 }

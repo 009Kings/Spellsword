@@ -4,7 +4,7 @@ var router = express.Router();
 var async = require('async');
 
 router.get('/', (req, res)=>{
-  db.spell.findAll().then((spells)=>{
+  db.spell.findAll({order: ['name']}).then((spells)=>{
       res.render("spells/spellList", {spells: spells});
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
@@ -30,14 +30,28 @@ router.get('/:id', (req, res)=>{
     // Access all the spellbooks if a user is logged in
     if (req.user) {
       db.spellbook.findAll({
-        where: {userId: req.user.id}
+        where: {userId: req.user.id},
+        include: [db.characterclass]
       }).then(spellbooks=>{
         // Creates an array of relevant spellbooks
         var relevantSpellbooks = [];
         async.series([(callback)=>{
           spellbooks.forEach(spellbook=>{
-            if(spellbook[`level_${spell.level}_slots`] > 0){
+            if (spellbook[`level_${spell.level}_slots`] > 0 || spell.level == 0) {
               relevantSpellbooks.push(spellbook);
+            } else if (spellbook.characterclass === "Warlock") {
+              // find spell max
+              var spellMax;
+              for(i=spellbook.level; i<=1; i-=1){
+                if (i) {
+                  spellMax = i;
+                }
+              }
+
+              // Check if the spell falls within the Spellmax range
+              if (spell.level <= spellMax) {
+                relevantSpellbooks.push(spellbook);
+              }
             }
           })
           callback(null, 'relevantSpellbooks Done');

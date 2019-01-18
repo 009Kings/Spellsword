@@ -75,6 +75,7 @@ router.post('/add', loggedIn, (req, res)=>{
 })
 
 router.post('/spellbook/add', (req, res)=>{
+  // TODO: spell.characterclasses.forEach(cClass=>{if(cClass!==spellbook.characterclass){//alert that allows the spell to be added anyway}})
   db.spellbook.findOne({
     where: { id: req.body.spellbookId}
   }).then(spellbook=>{
@@ -93,8 +94,20 @@ router.get('/spellbook/:id', loggedIn, (req, res)=>{
     where: {id: req.params.id},
     include: [db.characterclass, db.spell]
   }).then(spellbook=>{
-    console.log(spellbook.spell);
-    res.render('profile/showSpellbook', { spellbook: spellbook });
+    if (spellbook.characterclass.name === 'Warlock') {
+      // Find that spellmax!
+      var spellMax;
+      for (var i = 5; i >= 1; i -= 1) {
+        console.log(`${i}` .magenta);
+        if (spellbook[`level_${i}_slots`]) {
+          spellMax = i;
+          break;
+        }
+      }
+      res.render('profile/showWarlock', { spellbook: spellbook, warlockMax: spellMax });
+    } else {
+      res.render('profile/showSpellbook', { spellbook: spellbook });
+    }
   })
 })
 
