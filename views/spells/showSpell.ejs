@@ -24,21 +24,36 @@
   <p><em><%= characterclass.name %></em></p>
 <% }) %>
 
-<% if(user && spellbookNum > 0){ %>
-  <% if(spellbooks.length > 0){ %>
-    <form action="/profile/spellbook/add" method="post">
+<% if(user && spellbooks.length > 0){ %>
+  <% if(relevantSpellbooks.length > 0){ %>
+    <form action="/profile/spellbook/add" method="post" id="regular-add">
       <select name="spellbookId" id="spellbookId">
-        <% spellbooks.forEach(spellbook=>{ %> 
+        <% relevantSpellbooks.forEach(spellbook=>{ %> 
           <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
         <% }) %>
       </select>
+      <input type="hidden" id="isException" name="isException" value="false">
       <input type="hidden" name="spellId" value="<%= spell.id %>">
       <button type="submit">Add to Spellbook!</button>
     </form>
-  <% } else { %>
+    <% } else { %>
     <h5>You don't have any characters that can cast this spell!</h5>
     <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
   <% } %>
+  <p>Click this button if you are adding this spell to a spellbook through something other than basic spellcasting</p>
+  <p><em>(i.e. Tiefling's Hellish Rebuke feature, a Warlock's Mystic Arcanum, or a DM homerule)</em></p>
+  <button id="form-shift">Add an Exception Spell</button>
+  <form action="/profile/spellbook/add" method="post" id="exception-add" class="hidden">
+    <select name="spellbookId" id="spellbookId">
+    <% spellbooks.forEach(spellbook=>{ %> 
+      <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
+    <% }) %>
+    </select>
+    <input type="hidden" id="isException" value="false">
+    <input type="hidden" name="spellId" value="<%= spell.id %>">
+    <input type="hidden" id="isException" name="isException" value="true">
+    <input type="submit" value="Add to Spellbook!">
+  </form>
 <% } else if (user) { %>
   <h5>Looks like you don't have any spellbooks.</h2>
   <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
@@ -46,3 +61,21 @@
   <h5><a href="/auth/signup">Sign Up to save this spell!</a></h2>
   <p><a href="/auth/login">Or Login</a></p>
 <% } %>
+
+<script>
+  document.getElementById("form-shift").addEventListener("click", ()=>{
+    var regularForm = document.getElementById("regular-add");
+    var exceptionForm = document.getElementById("exception-add");
+    var btn = document.getElementById("form-shift");
+
+    if (exceptionForm.hasAttribute("class", "hidden")) {
+      regularForm.setAttribute("class", "hidden");
+      exceptionForm.removeAttribute("class", "hidden");
+      btn.textContent = "Add a Regular Spell";
+    } else {
+      regularForm.removeAttribute("class", "hidden");
+      exceptionForm.setAttribute("class", "hidden");
+      btn.textContent = "Add Exception Spell";
+    }
+  });
+</script>

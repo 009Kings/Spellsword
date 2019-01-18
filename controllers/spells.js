@@ -42,12 +42,12 @@ router.get('/:id', (req, res)=>{
             } else if (spellbook.characterclass === "Warlock") {
               // find spell max
               var spellMax;
+              
               for(i=spellbook.level; i<=1; i-=1){
                 if (i) {
                   spellMax = i;
                 }
               }
-
               // Check if the spell falls within the Spellmax range
               if (spell.level <= spellMax) {
                 relevantSpellbooks.push(spellbook);
@@ -56,7 +56,7 @@ router.get('/:id', (req, res)=>{
           })
           callback(null, 'relevantSpellbooks Done');
         }, (callback)=>{
-          res.render("spells/showSpell", { spell : spell, spellbookNum: spellbooks.length, spellbooks: relevantSpellbooks });
+          res.render("spells/showSpell", { spell : spell, relevantSpellbooks: relevantSpellbooks, spellbooks: spellbooks });
           callback(null, 'rendering Done')
         }])
       })

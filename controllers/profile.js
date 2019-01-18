@@ -81,8 +81,7 @@ router.post('/spellbook/add', (req, res)=>{
   }).then(spellbook=>{
     db.spell.findByPk(req.body.spellId)
     .then(spell=>{
-      console.log(spell.name);
-      spellbook.addSpell(spell);
+      spellbook.addSpell(spell, { through: { exceptionAdd: req.body.isException }});
     }).then(spell=>{
       res.redirect('/spells');
     })

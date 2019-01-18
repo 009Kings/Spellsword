@@ -14,6 +14,9 @@ module.exports = {
       spellbookId: {
         type: Sequelize.INTEGER
       },
+      exceptionAdd: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
