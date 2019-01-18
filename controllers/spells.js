@@ -31,7 +31,14 @@ router.get('/:id', (req, res)=>{
       db.spellbook.findAll({
         where: {userId: req.user.id}
       }).then(spellbooks=>{
-        res.render("spells/showSpell", { spell : spell, spellbooks: spellbooks });
+        // Creates an array of relevant spellbooks
+        var relevantSpellbooks = [];
+        spellbooks.forEach(spellbook=>{
+          if(spellbook[`level_${spell.level}_slots`] > 0){
+            relevantSpellbooks.push(spellbook);
+          }
+        })
+        res.render("spells/showSpell", { spell : spell, spellbookNum: spellbooks.length, spellbooks: relevantSpellbooks });
       })
     } else {
       res.render("spells/showSpell", { spell : spell });

@@ -24,19 +24,24 @@
   <p><em><%= characterClass.name %></em></p>
 <% }) %>
 
-<% if(user && spellbooks.length > 0){ %>
-  <form action="/profile/spellbook/add" method="post">
-    <select name="spellbookId" id="spellbookId">
-      <% spellbooks.forEach(spellbook=>{ %>
-        <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
-      <% }) %>
-    </select>
-    <input type="hidden" name="spellId" value="<%= spell.id %>">
-    <button type="submit">Add to Spellbook!</button>
-  </form>
+<% if(user && spellbookNum > 0){ %>
+  <% if(spellbooks > 0){ %>
+    <form action="/profile/spellbook/add" method="post">
+      <select name="spellbookId" id="spellbookId">
+        <% spellbooks.forEach(spellbook=>{ %> 
+          <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
+        <% }) %>
+      </select>
+      <input type="hidden" name="spellId" value="<%= spell.id %>">
+      <button type="submit">Add to Spellbook!</button>
+    </form>
+  <% } else { %>
+    <h5>You don't have any characters that can cast this spell!</h5>
+    <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
+  <% } %>
 <% } else if (user) { %>
   <h5>Looks like you don't have any spellbooks.</h2>
-  <p><a href="/profile/spellbook/new">Create a Spellbook!</a></p>
+  <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
 <% } else { %>
   <h5><a href="/auth/signup">Sign Up to save this spell!</a></h2>
   <p><a href="/auth/login">Or Login</a></p>
