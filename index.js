@@ -48,6 +48,6 @@ app.use("/profile", require("./controllers/profile"));
 app.use("/spells", require("./controllers/spells"));
 
 // Listen on a port
-app.listen("3010", ()=> {
-    console.log('You\'re listening to the smooth sounds of port 3010 ♨︎')
+app.listen(process.env.PORT || 3010, ()=> {
+    console.log(`You're listening to the smooth sounds of port 3010 ♨︎`)
 });
