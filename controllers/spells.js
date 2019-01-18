@@ -3,15 +3,6 @@ var express = require("express");
 var router = express.Router();
 
 router.get('/', (req, res)=>{
-  // if (req.query.nameSearch){
-  //   db.spell.findAll({
-  //     where: {
-  //       name: {
-  //         [Op.iLike]: 
-  //       }
-  //     }
-  //   })
-  // }
   db.spell.findAll().then((spells)=>{
       res.render("spells/spellList", {spells: spells});
   }).catch(err=>{
@@ -30,16 +21,7 @@ router.get('/', (req, res)=>{
 //   res.render(`dinosaurs/index`, {myDinos: dinoData})
 // }
 
-router.get('/filter', (req, res)=>{
-  
-})
-
 router.get('/:id', (req, res)=>{
-  if (req.user) {
-    console.log(`${req.user.username}` .white);
-  } else {
-    console.log(`No one is logged in` .white);
-  }
   db.spell.findOne({
     where: {id: req.params.id},
     include: [db.school, db.characterclass]

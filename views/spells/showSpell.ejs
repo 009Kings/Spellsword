@@ -20,19 +20,24 @@
   <p><%= spell.higher_level %></p>
 <% } %>
 
+<% spell.characterclasses.forEach(characterClass=>{ %>
+  <p><em><%= characterClass.name %></em></p>
+<% }) %>
+
 <% if(user && spellbooks.length > 0){ %>
   <form action="/profile/spellbook/add" method="post">
-    <select name="spellbookId" id="spellbooks">
+    <select name="spellbookId" id="spellbookId">
       <% spellbooks.forEach(spellbook=>{ %>
         <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
       <% }) %>
     </select>
+    <input type="hidden" name="spellId" value="<%= spell.id %>">
     <button type="submit">Add to Spellbook!</button>
   </form>
 <% } else if (user) { %>
-  <h2>Looks like you don't have any spellbooks.</h2>
+  <h5>Looks like you don't have any spellbooks.</h2>
   <p><a href="/profile/spellbook/new">Create a Spellbook!</a></p>
 <% } else { %>
-  <h2><a href="/auth/signup">Sign Up to save this spell!</a></h2>
+  <h5><a href="/auth/signup">Sign Up to save this spell!</a></h2>
   <p><a href="/auth/login">Or Login</a></p>
 <% } %>

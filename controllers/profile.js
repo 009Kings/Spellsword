@@ -74,6 +74,20 @@ router.post('/add', loggedIn, (req, res)=>{
   
 })
 
+router.post('/spellbook/add', (req, res)=>{
+  db.spellbook.findOne({
+    where: { id: req.body.spellbookId}
+  }).then(spellbook=>{
+    db.spell.findByPk(req.body.spellId)
+    .then(spell=>{
+      console.log(spell.name);
+      spellbook.addSpell(spell);
+    }).then(spell=>{
+      res.redirect('/spells');
+    })
+  })
+})
+
 router.get('/spellbook/:id', loggedIn, (req, res)=>{
   db.spellbook.findOne({
     where: {id: req.params.id},
@@ -83,7 +97,6 @@ router.get('/spellbook/:id', loggedIn, (req, res)=>{
     res.render('profile/showSpellbook', { spellbook: spellbook });
   })
 })
-
 
 router.get('/admins', isAdmin, (req, res) => {
   res.render('profile/admin');
