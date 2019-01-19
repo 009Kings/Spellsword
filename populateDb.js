@@ -4,7 +4,7 @@ var db = require('./models');
 var request = require('request');
 
 // TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
-cleanDesc = (arrayOfStrings)=>{
+cleanDesc = (arrayOfStrings) => {
   var sqeeky = arrayOfStrings.map((string, i) => {
     if (string[0] === " ") {
       var fancyString = "*" + arrayOfStrings[i-1];
@@ -128,11 +128,8 @@ async.series([(callback)=>{
             spellDeets.ritual = spellDeets.ritual === "yes";
             
             async.waterfall([(callback)=>{
-              console.log('START THE shitterfall!' .green);
-              var desc = cleanDesc(spellDeets.desc);
-              console.log(`${spellDeets.desc}`);
-              console.log(cleanDesc(spellDeets.desc));
-              callback(null, desc);
+              cleanDesc(spellDeets.desc);
+              callback(null, spellDeets.desc);
             }, (description, callback)=>{
                 db.school.findOne({where: {name: spellDeets.school.name}}).then((school)=>{
                   if (!school) {
