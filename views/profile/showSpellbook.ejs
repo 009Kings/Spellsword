@@ -1,5 +1,6 @@
 <h1>Spellbook for <%= spellbook.name %></h1>
 <h3>Level <%= spellbook.level %> <%= spellbook.characterclass.name %></h3>
+<h5><a href="/profile/spellbook/<%= spellbook.id %>/edit">Edit <%= spellbook.name %></a></h5>
 
 <p>Spells Known: <%= spellbook.known_spells %></p>
 
@@ -130,8 +131,3 @@
   </ul>
   <hr>
 <% }%>
-
-<form action="/profile/spellbook/?_method=DELETE" method="post">
-  <input type="hidden" name="spellbookId" value="<%= spellbook.id %>">
-  <input type="submit" value="Delete this Character">
-</form>

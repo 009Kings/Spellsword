@@ -88,6 +88,7 @@ router.post('/spellbook/add', (req, res)=>{
   })
 })
 
+
 router.get('/spellbook/:id', loggedIn, (req, res)=>{
   db.spellbook.findOne({
     where: {id: req.params.id},
@@ -107,6 +108,35 @@ router.get('/spellbook/:id', loggedIn, (req, res)=>{
     } else {
       res.render('profile/showSpellbook', { spellbook: spellbook });
     }
+  })
+})
+
+router.get('/spellbook/:id/edit', loggedIn, (req, res)=>{
+  db.spellbook.findOne({
+    where: {id: req.params.id},
+    include: [db.characterclass, db.spell]
+  }).then(spellbook=>{
+    db.characterclass.findAll({order: ['id']}).then(classes=>{
+      res.render('profile/edit', { spellbook: spellbook, classes: classes })
+    })
+  })
+})
+
+router.put('/spellbook', loggedIn, (req, res)=>{
+  db.characterclass.findOne({ where: { name: req.body.characterclass } }).then(cClass=>{
+    // Once the character class is found, we can update the spellbook with the foreign key
+    db.spellbook.update({
+      name: req.body.name,
+      level: req.body.level,
+      characterclass: cClass.id 
+    }, {
+      where: { id: req.body.spellbookId },
+      returning: true,
+      plain: true
+    }).then(updateArray=>{
+      console.log(`${updateArray[1].name} was updated!` .green);
+      res.redirect(`/profile/spellbook/${updateArray[1].id}`);
+    })
   })
 })
 
