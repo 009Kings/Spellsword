@@ -4,7 +4,24 @@ var db = require('./models');
 var request = require('request');
 
 // TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
+cleanDesc = (arrayOfStrings)=>{
+  var sqeeky = arrayOfStrings.map((string, i) => {
+    if (string[0] === " ") {
+      var fancyString = "*" + arrayOfStrings[i-1];
+      arrayOfStrings[i-1] = fancyString;
+      var thisString = "|" + cleanString(string).substr(1);
+      arrayOfStrings[i] = thisString;
+    } else {
+      arrayOfStrings[i] = cleanString(string);
+    }
+  });
+  return sqeeky;
+}
 
+cleanString = (string)=>{
+  var regex = /â€™/gi;
+  return string.replace(regex, "'");
+}
 
 async.series([(callback)=>{
   // Populates Classes
@@ -56,12 +73,13 @@ async.series([(callback)=>{
             console.log(error);
           } else {
             var schoolDeets = JSON.parse(body);
+            var desc = cleanString(schoolDeets.desc);
 
             db.school.findOrCreate({
               where: {id: schoolDeets.index},
               defaults: {
                 name: schoolDeets.name,
-                desc: schoolDeets.desc
+                desc: desc
               }
             }).spread((newSchool, created)=>{
               if (!created) {
@@ -69,9 +87,6 @@ async.series([(callback)=>{
               }
             }).then(()=>{
               done();
-            }).catch(err=>{
-              console.log(`THERE'S A BIG 'OL ERROR IN ${schoolDeets.name}` .magenta);
-              console.log(err);
             });
           }
         })
@@ -102,62 +117,67 @@ async.series([(callback)=>{
       async.forEach(spells, (spell, done)=>{
         request(spell.url, (error, response, body)=>{
           if(error || response.statusCode !=200){
-            console.log("Bad news bears! There's been an error in the individual Request 2" .magenta);
+            console.log("Bad news bears! There's been an error in the individual spell request" .magenta);
             console.log(error);
           } else {
             var spellDeets = JSON.parse(body);
             // Changes the formatting of some of the API call information to a more pallatable db type
             // TODO write function to save desc as markdown or html
-            var desc = spellDeets.desc.join('|');
             var higherLvl = spellDeets.higher_level ? spellDeets.higher_level.join('  ') : undefined;
             var components = spellDeets.components.join(',');
             spellDeets.ritual = spellDeets.ritual === "yes";
-
-            db.school.findOne({where: {name: spellDeets.school.name}}).then((school)=>{
-                if (!school) {
-                  console.log(`could not find school ${spellDeets.school.name}`)
-                }
-              //Create the actual Spell
-              db.spell.findOrCreate({
-                where: {id: spellDeets.index},
-                defaults: {
-                  name: spellDeets.name,
-                  desc: desc,
-                  higher_level: higherLvl,
-                  page: spellDeets.page,
-                  range: spellDeets.range,
-                  components: components,
-                  material: spellDeets.material,
-                  ritual: spellDeets.ritual,
-                  duration: spellDeets.duration,
-                  concentration: spellDeets.concentration,
-                  casting_time: spellDeets.casting_time,
-                  level: spellDeets.level,
-                  schoolId: school.id
-                }
-              }).spread((spell, created)=>{
-                spellDeets.classes.forEach(characterClass=>{
-                  db.characterclass.findOne({
-                    where: {name: characterClass.name}
-                  }).then(characterClass=>{
-                    spell.addCharacterclass(characterClass);
-                  }).catch(err=>console.log(`Error in associating ${characterClass} and ${spell.name}` .red))
+            
+            async.waterfall([(callback)=>{
+              console.log('START THE shitterfall!' .green);
+              var desc = cleanDesc(spellDeets.desc);
+              console.log(`${spellDeets.desc}`);
+              console.log(cleanDesc(spellDeets.desc));
+              callback(null, desc);
+            }, (description, callback)=>{
+                db.school.findOne({where: {name: spellDeets.school.name}}).then((school)=>{
+                  if (!school) {
+                    console.log(`could not find school ${spellDeets.school.name}`)
+                  }
+                  //Create the actual Spell
+                  db.spell.findOrCreate({
+                    where: {id: spellDeets.index},
+                    defaults: {
+                      name: spellDeets.name,
+                      desc: description,
+                      higher_level: higherLvl,
+                      page: spellDeets.page,
+                      range: spellDeets.range,
+                      components: components,
+                      material: spellDeets.material,
+                      ritual: spellDeets.ritual,
+                      duration: spellDeets.duration,
+                      concentration: spellDeets.concentration,
+                      casting_time: spellDeets.casting_time,
+                      level: spellDeets.level,
+                      schoolId: school.id
+                    }
+                  }).spread((spell, created)=>{
+                    spellDeets.classes.forEach(characterClass=>{
+                      db.characterclass.findOne({
+                        where: {name: characterClass.name}
+                      }).then(characterClass=>{
+                        spell.addCharacterclass(characterClass);
+                      }).catch(err=>console.log(`Error in associating ${characterClass} and ${spell.name}` .red))
+                    });
+                    if (created){
+                      console.log(`You did a bangup job creating ${spell.name}` .cyan)
+                    } else {
+                      console.log("Spell not created" .black);
+                    }
+                  }).then(()=>{
+                    done();
+                  });
+                }).catch(err=>{
+                  console.log(`Trouble finding the schoolId for ${spellDeets.name}` .magenta);
+                  console.log(`${err}` .red);
                 });
-                if (created){
-                  console.log(`You did a bangup job creating ${spell.name}` .cyan)
-                } else {
-                  console.log("Spell not created" .black);
-                }
-              }).then(()=>{
-                done();
-              }).catch(err=>{
-                console.log(`THERE'S A BIG 'OL ERROR IN ${spellDeets.name}` .magenta);
-                console.log(err);
-              });
-            }).catch(err=>{
-              console.log(`Trouble finding the schoolId for ${spellDeets.name}` .magenta);
-              console.log(`${err}` .red);
-            });
+                callback(null, "done");
+            }])
           }
         })
       }, (err)=>{

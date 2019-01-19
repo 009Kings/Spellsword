@@ -97,10 +97,10 @@ Views and folders
 This section tells the tale of development. If you just want to know what technology is used, jump down to the bottom of the page and scroll up a bit.
 
 #### Sprint 1 (Saturday - Tuesday)
-###### The Plan: 
+##### The Plan: 
 Wireframe and have all functionality that the code needs to work even if it's not usable or pretty.
 
-###### The Execution:
+##### The Execution:
 The Old-idea was dead, to begin with. There is no doubt whatever about that. The register of its burial was signed by the clergyman, the clerk, the undertaker, and the chief mourner. The developer signed it. And the developer's name was good upon 'change for anything she chose to put her hand to. The Old-idea was as dead as a doornail.
 
 **The weekend** was spent searching for public APIs and brainstorming what to build. After discovering the 5th edition Dungeons and Dragons API, I thought of what I would want from this wealth of information and what has been lacking from the free apps I've encountered. Having recently wresled with choosing spells for a new character, I decided to make an application that would allow me to access the spells of a specific character (and only that character). The rest of the weekend was spent trying to scale back what I want to accomplish in this app so that I have a reasonable MVP with good potential to grow.
@@ -111,17 +111,20 @@ The Old-idea was dead, to begin with. There is no doubt whatever about that. The
 
 
 #### Sprint 2 (Wednesday and Thursday)
-###### The Plan: 
+##### The Plan: 
 MVP(functionality and basic styling)
 
-###### The Execution:
-**Wednesday** was spend making up for lost time during my sickness on Tuesday. First thing first was to debug the populating of the DB, turns out, there are some school sections of the spells that don't have the url, so I had to create a database call to create the relationship.
+##### The Execution:
+**Wednesday** was spent making up for lost time during my sickness on Tuesday. First thing first was to debug the populating of the DB, turns out, there are some school sections of the spells that don't have the url, so I had to create a database call to create the relationships. 
+
+**Thursday** was spent trying to wade through the fog of my sickness. I had enough lucidity to know that my previous two days code was circuitous and less than DRY, but I didn't have enouch juice to refactor effectively. I barely had enough mental capacity to add the code I did. Determined, I trudged through the muck of my sickness and made the accociations between character classes and spells as well as spells and spellbooks.
 
 #### Sprint 3 (Friday - Monday)
-###### The Plan:
+##### The Plan:
 Finish the Readme, additional styling, and implementation of stretch goals.
 
-###### The Execution:
+##### The Execution:
+**Friday** was spent on filtering and accomodating for the enevitable exceptions to the overall logic of spells (__WARLOCKS WHY!?__). Add a little Readme spice up and some headbutting aginst UTF 8 and you've got a solid Friday.
 
 ## It's Not Safe to Go Alone, Take this
 

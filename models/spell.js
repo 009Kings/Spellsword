@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     desc: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false
     },
     higher_level: DataTypes.TEXT,
