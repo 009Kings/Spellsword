@@ -17,39 +17,43 @@
   <h4>Find By School</h4>
 </div>
 
-<ul>
+<div id="spell-list">
   <% spells.forEach(spell=>{ %>
-    <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+    <div class="spell-card">
+      <div class="card-title">
+        <p><a href="/spells/<%= spell.id %>"><%= spell.name %></a></p>
+      </div>
+      <div class="card-body">
+        <p>
+          <% if (spell.level === 0) { %>
+            <span><strong>Level:</strong> Cantrip</span>
+          <% } else { %>
+            <span><strong>Level:</strong> <%= spell.level%></span>
+          <% } %>
+          <span><strong>School:</strong> <%= spell.school.name %></span>
+          <% if (spell.characterclasses.length > 1) { %>
+            <span>
+              <strong>Classes: </strong> 
+              <% spell.characterclasses.forEach((cClass, i)=>{ %>
+                <% if (i === spell.characterclasses.length - 1) { %>
+                  <%= cClass.name %>
+                <% } else { %>
+                  <%= cClass.name %>,
+                <% } %>
+              <% }) %>
+            </span>
+          <% } else { %>
+            <span><strong>Class:</strong> <%= spell.characterclasses[0].name %></span>
+          <% } %>
+        </p>
+      </div>
+    </div>
   <% }) %>
-</ul>
+</div>
 
 <script>
   var spells = <%- JSON.stringify(spells) %>;
-
-  // List out the spellcasting classes
-  spells.characterclasses.forEach(cClass=>{
-    if (cClass.spellcasting) {
-      var link = document.createElement('a');
-      var linkText = document.createTextNode(cClass.name);
-      link.href = `/spells/byClass/${cClass.name}`;
-      document.getElementById(`by-class`).appendChild(link);
-    }
-  })
-
-  // List out the Levels
-  for (let i = 0; i <= 9; i++) {
-      var link = document.createElement('a');
-      var text = i === 0 ? 'Cantrips' : `Level ${i}`;
-      var linkText = document.createTextNode(text);
-      link.href = `/spells/byLevel/${i}`;
-      document.getElementById(`by-level`).appendChild(link);
-  }
-
-  // By School
-  spells.school.forEach(school=>{
-    var link = document.createElement('a');
-    var linkText = document.createTextNode(school.name);
-    link.href = `/spells/bySchool/${school.name}`;
-    document.getElementById(`by-school`).appendChild(link);
-  })
+  var cClasses = <%- JSON.stringify(cClasses) %>;
+  var schools = <%- JSON.stringify(schools) %>;
 </script>
+<script src="/spellsIndex.js"></script>

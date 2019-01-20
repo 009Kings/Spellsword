@@ -5,16 +5,40 @@ var async = require('async');
 var colors = require('colors');
 
 router.get('/', (req, res)=>{
-  db.spell.findAll({
-    include: [{model: db.characterclass}, {model: db.school}],
-    order: ['name']
-  }).then((spells)=>{
-    console.log(`${typeof spells[0].material}` .red);
-    res.render("spells/spellList", {spells: spells});
-  }).catch(err=>{
-    console.log(`Bad news bears! There's neen an error getting all the spells!`);
-    console.log(err);
-    res.render("error");
+  async.waterfall([callback=>{
+    // Get all the schools
+    db.school.findAll({ order: ['name'] }).then(schools=>{
+      callback(null, schools);
+    })
+  }, (schools, callback)=>{
+    // Get all the Classes
+    db.characterclass.findAll({ 
+      where: { spellcasting: true },
+      order: ['name'] 
+    }).then(spellClasses=>{
+      callback(null, schools, spellClasses);
+    })
+  }, (schools, classes, callback)=>{
+    db.spell.findAll({
+      include: [{
+        model: db.characterclass,
+      }, {
+        model: db.school,
+      }],
+      order: ['name']
+    }).then((spellsArray)=>{
+      console.log(`schools is a ${spellsArray[0].characterclasses}` .red);
+      res.render("spells/spellList", {spells: spellsArray, schools: schools, cClasses: classes});
+      callback(null, 'fucking doneskies');
+    }).catch(err=>{
+      console.log(`Bad news bears! There's neen an error displaying the spells!`);
+      console.log(err);
+      res.render("error");
+    })
+  }], (error, result)=>{
+    if (error) {
+      console.log(`The error is ${error}` .red);
+    }
   })
 })
 
