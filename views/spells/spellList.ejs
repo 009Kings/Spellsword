@@ -18,37 +18,7 @@
 </div>
 
 <div id="spell-list">
-  <% spells.forEach(spell=>{ %>
-    <div class="spell-card">
-      <div class="card-title">
-        <p><a href="/spells/<%= spell.id %>"><%= spell.name %></a></p>
-      </div>
-      <div class="card-body">
-        <p>
-          <% if (spell.level === 0) { %>
-            <span><strong>Level:</strong> Cantrip</span>
-          <% } else { %>
-            <span><strong>Level:</strong> <%= spell.level%></span>
-          <% } %>
-          <span><strong>School:</strong> <%= spell.school.name %></span>
-          <% if (spell.characterclasses.length > 1) { %>
-            <span>
-              <strong>Classes: </strong> 
-              <% spell.characterclasses.forEach((cClass, i)=>{ %>
-                <% if (i === spell.characterclasses.length - 1) { %>
-                  <%= cClass.name %>
-                <% } else { %>
-                  <%= cClass.name %>,
-                <% } %>
-              <% }) %>
-            </span>
-          <% } else { %>
-            <span><strong>Class:</strong> <%= spell.characterclasses[0].name %></span>
-          <% } %>
-        </p>
-      </div>
-    </div>
-  <% }) %>
+
 </div>
 
 <script>
