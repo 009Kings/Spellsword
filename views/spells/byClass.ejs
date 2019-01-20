@@ -1,0 +1,45 @@
+<h1><%= cClass %> Spells</h1>
+
+<h3>Cantrips</h3>
+<ul id="level-0-list"></ul>
+
+<h3>Level 1</h3>
+<ul id="level-1-list"></ul>
+
+<h3>Level 2</h3>
+<ul id="level-2-list"></ul>
+
+<h3>Level 3</h3>
+<ul id="level-3-list"></ul>
+
+<h3>Level 4</h3>
+<ul id="level-4-list"></ul>
+
+<h3>Level 5</h3>
+<ul id="level-5-list"></ul>
+
+<h3>Level 6</h3>
+<ul id="level-6-list"></ul>
+
+<h3>Level 7</h3>
+<ul id="level-7-list"></ul>
+
+<h3>Level 8</h3>
+<ul id="level-8-list"></ul>
+
+<h3>Level 9</h3>
+<ul id="level-9-list"></ul>
+
+<script>
+  var spells = <%- JSON.stringify(spells) %>;
+  spells.forEach((spell)=>{
+    console.log(spell.level, spell.name);
+    var HTSPell = document.createElement('li');
+    var link = document.createElement('a');
+    var linkText = document.createTextNode(spell.name);
+    link.appendChild(linkText);
+    link.href = `/spells/${spell.id}`;
+    HTSPell.appendChild(link);
+    document.getElementById(`level-${spell.level}-list`).appendChild(HTSPell);
+  })
+</script>

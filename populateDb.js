@@ -126,6 +126,7 @@ async.series([(callback)=>{
             var higherLvl = spellDeets.higher_level ? spellDeets.higher_level.join('  ') : undefined;
             var components = spellDeets.components.join(',');
             spellDeets.ritual = spellDeets.ritual === "yes";
+            spellDeets.level = spellDeets.level === -1 ? 0 : spellDeets.level;
             
             async.waterfall([(callback)=>{
               cleanDesc(spellDeets.desc);

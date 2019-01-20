@@ -5,9 +5,15 @@
   <input type="text" id="nameSearch" name="nameSearch">
   <input type="submit">
 </form> -->
+<h3 id="test"></h3>
 
 <ul>
   <% spells.forEach(spell=>{ %>
     <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
   <% }) %>
 </ul>
+
+<script>
+  document.getElementById('test').textContent = `There are ${<%= spells.length %>} spells BITCH!`;
+
+</script>

@@ -2,6 +2,7 @@ var db = require("../models");
 var express = require("express");
 var router = express.Router();
 var async = require('async');
+var colors = require('colors');
 
 router.get('/', (req, res)=>{
   db.spell.findAll({order: ['name']}).then((spells)=>{
@@ -13,6 +14,17 @@ router.get('/', (req, res)=>{
   })
 })
 
+router.get('/byClass/:class', (req, res)=>{
+  db.spell.findAll({
+    include: [{
+      model: db.characterclass,
+      where: { name: req.params.class }
+    }],
+    order: ['name'],
+  }).then(classSpells=>{
+    res.render('spells/byClass', { spells: classSpells, cClass: req.params.class });
+  })
+})
 // if (nameFilter) {
 //   var filteredData = dinoData.filter((dino)=>{
 //       return dino.name.toLowerCase() === nameFilter.toLowerCase();
@@ -56,12 +68,12 @@ router.get('/:id', (req, res)=>{
           })
           callback(null, 'relevantSpellbooks Done');
         }, (callback)=>{
-          res.render("spells/showSpell", { spell : spell, relevantSpellbooks: relevantSpellbooks, spellbooks: spellbooks });
+          res.render('spells/showSpell', { spell : spell, relevantSpellbooks: relevantSpellbooks, spellbooks: spellbooks });
           callback(null, 'rendering Done')
         }])
       })
     } else {
-      res.render("spells/showSpell", { spell : spell });
+      res.render('spells/showSpell', { spell : spell });
     }
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
