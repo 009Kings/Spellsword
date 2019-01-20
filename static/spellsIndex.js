@@ -1,69 +1,167 @@
+// Testing out this "old smuggler trick" of putting everything into a function that you immediately call to avoid double naming and publishing private variables
+var spellIndex = function(){ 
+  // Pass me a warning if spells is undefined
+  console.assert(SPELLS !== undefined, 'Spells are not defined');
 
-// List out the spellcasting classes
-for (let i = 0; i < cClasses.length; i++) {
-  var navList = document.createElement('li')
-
-  var link = document.createElement('a');
-  var linkText = document.createTextNode(cClasses[i].name);
-  link.appendChild(linkText);
-  link.href = `/spells/byClass/${cClasses[i].name}`;
-
-  navList.appendChild(link);
-  
-  document.getElementById('by-class').appendChild(navList);
-}
-
-
-// Now for da spellz
-spells.forEach(spell=>{
-  // create spell-card div (1)
-  var card = document.createElement('div');
-  card.classList.add('spell-card');
-  
-  // create spell-card title with link (1A)
-  var cardTitle = document.createElement('div');
-  cardTitle.classList.add('card-title');
-
-  var spellLink = document.createElement('a');
-  var linkText = document.createTextNode(spell.name);
-  spellLink.appendChild(linkText);
-  spellLink.href = `/spells/${spell.id}`
-
-  cardTitle.appendChild(spellLink);
-  card.appendChild(cardTitle);
-  
-  // create spell-card body (1B)
-  var spellInfo = document.createElement('div');
-  spellInfo.classList.add('card-body');
-
-  // create level: (1Bi)
-  var levelInfo = document.createElement('p');
-  levelInfo.textContent = spell.level === 0 ? 'Cantrip' : `Level ${spell.level}`;
-
-  spellInfo.appendChild(levelInfo);
-
-  // create school: (1Bii)
-  var schoolInfo = document.createElement('p');
-  schoolInfo.textContent = `School of ${spell.school.name}`;
-
-  spellInfo.appendChild(schoolInfo);
-  
-  // create class(es): (1Biii)
-  var classInfo = document.createElement('p');
-  if (spell.characterclasses.length > 1) {
-    classNames = spell.characterclasses.map(cClass=>{
-      return cClass.name;
-    })
-    classInfo.textContent = classNames.join(', ');
-  } else {
-    classInfo.textContent = spell.characterclasses[0].name;
+  // Take what I want from the SPELLS JSON
+  function processSpells(spells){
+    return spells.map((spell)=> {
+      return {
+        name: spell.name,
+        level: spell.level,
+        classes: spell.characterclasses.map(c=>c.name),
+        school: spell.school.name
+      }
+    });
   }
 
-  spellInfo.appendChild(classInfo);
+  // STATE of the spellsIndex nation
+  var STATE = {
+    // listing all the spells
+    spells: processSpells(SPELLS),
+    characterClasses: C_CLASSES,
 
-  card.appendChild(spellInfo);
+    // the search parameters
+    filterParams: {nameContains: ''},
   
-  // Add the complete card to the spell-list
-  document.getElementById('spell-list').appendChild(card);
-})
+    // Dom bits
+    handles: {
+      // i.e. name filters and check boxes and radio buttons oh my
+      inputs: {},
+      // Right now, just the spell-list div
+      outputs: {}
+    }
+  };
+
+  // Lets initialise this shit!
+  function init(){
+    // Load the handles
+    STATE.handles.inputs.byClassList = document.getElementById('by-class');
+    STATE.handles.inputs.nameContains = document.getElementById('name-contains');
+    STATE.handles.outputs.spellListWrapper = document.getElementById('spell-list');
+
+    // change the filter parameters to match the input in the search field
+    STATE.filterParams.nameContains = STATE.handles.inputs.nameContains.value;
+
+    // input bondage
+    STATE.handles.inputs.byClassList.addEventListener('click', toggleFindByClass);
+    STATE.handles.inputs.nameContains.addEventListener('input', tick);
+
+    // Run tick() so that the page inits with the whole list
+    tick();
+  }
+
+  function toggleFindByClass() {
+    console.log('Clicked!');
+  }
+
+  function tick() {
+    update();
+    render();
+  }
+
+  function update() {
+    // read the current filter input
+    var nameContains = STATE.handles.inputs.nameContains.value;
+    // Check if it works
+    console.log(`Filter changed to ${nameContains}`);
+    STATE.filterParams.nameContains = nameContains;
+  }
+
+  function render() {
+    // Make a static list by class
+    // List out the spellcasting classes
+    for (let i = 0; i < STATE.characterClasses.length; i++) {
+      var navList = document.createElement('li')
+
+      var link = document.createElement('a');
+      var linkText = document.createTextNode(STATE.characterClasses[i].name);
+      link.appendChild(linkText);
+      link.href = `/spells/byClass/${STATE.characterClasses[i].name}`;
+
+      navList.appendChild(link);
+      
+      document.getElementById('by-class').appendChild(navList);
+    }
+
+    // Burn it down
+    var container = STATE.handles.outputs.spellListWrapper;
+    container.innerHTML = '';
+
+    // Buit it back up
+    var filteredSpells = getFilteredSpells();
+    filteredSpells.forEach(spell=>{
+      var rederedSpell = renderSpellCard(spell);
+      container.appendChild(rederedSpell);
+    });
+    
+  }
+
+  function getFilteredSpells() {
+    return STATE.spells.filter(spell=>{
+      // move everything to lowercase so there's no case sensitivity
+      var lowerName = spell.name.toLowerCase();
+      var lowerNameFilter = STATE.filterParams.nameContains.toLowerCase();
+      return lowerName.includes(lowerNameFilter);
+    });
+  }
+
+  function renderSpellCard(spell) {
+    // First comes the article
+    var spellList = document.createElement('article');
+    // This is what Tachyons told me to do
+    spellList.className = "center mw5 mw6-ns br3 ba b--black-10 mv4";
+
+    // Then comes the title
+    var title = document.createElement('h1');
+    title.className = 'f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3';
+    title.textContent = spell.name;
+    spellList.appendChild(title);
+
+    // Then comes the content with a two iterator forEach
+    var cardBody = document.createElement('div');
+    cardBody.className = "pa3 bt b--black-10";
+
+    ['level', 'school'].forEach(key=>{
+      var dList = document.createElement('dl');
+      dList.className = 'f6 lh-title mv2 dib pa3';
+
+      var dTitle = document.createElement('dt');
+      dTitle.className = 'dib b';
+      var displayName = key.charAt(0).toUpperCase() + key.slice(1)
+      dTitle.textContent = displayName;
+      dList.appendChild(dTitle);
+
+      var dDesc = document.createElement('dd');
+      dDesc.className = 'dib ml0 gray';
+      dDesc.textContent = spell[key];
+      dList.appendChild(dDesc);
+
+      cardBody.appendChild(dList);
+    });
+    
+    // Now for the Classes
+    var schoolSection = document.createElement('dl');
+    schoolSection.className = 'f6 lh-title mv2 dib pa3';
+    
+    var schoolTitle = document.createElement('dt');
+    schoolTitle.className = 'dib b';
+    schoolTitle.textContent = spell.classes > 1 ? 'Schools' : 'School';
+    schoolSection.appendChild(schoolTitle);
+    
+    var schoolDesc = document.createElement('dd');
+    schoolDesc.className = 'dib ml0 gray';
+    schoolDesc.textContent = spell.classes.join(', ');
+    schoolSection.appendChild(schoolDesc);
+    
+    cardBody.appendChild(schoolSection);
+
+    // Let the body hit the floor (of the spellList);
+    spellList.appendChild(cardBody);
+
+    return spellList;
+  }
+  
+  document.addEventListener('DOMContentLoaded', init)
+}();
   

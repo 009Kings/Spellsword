@@ -1,11 +1,16 @@
 <h1>Show all spells!</h1>
 
 <div>
-  <h4>Find By Class</h4>
-  <ul id="by-class">
+  <h4 class="toggle-hidden"><strong>Find By Class</strong></h4>
+  <ul id="by-class" class="hidden">
   </ul>
 </div>
- 
+
+<div>
+  <label for="name-contains">Search By Name: </label>
+  <input type="text" name="name-contains" id="name-contains">
+</div>
+
 <hr>
 
 <div id="spell-list">
@@ -13,8 +18,8 @@
 </div>
 
 <script>
-  var spells = <%- JSON.stringify(spells) %>;
-  var cClasses = <%- JSON.stringify(cClasses) %>;
-  var schools = <%- JSON.stringify(schools) %>;
+  // 
+  var SPELLS = <%- JSON.stringify(spells) %>;
+  var C_CLASSES = <%- JSON.stringify(cClasses) %>;
 </script>
 <script src="/spellsIndex.js"></script>
