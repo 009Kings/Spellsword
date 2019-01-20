@@ -147,11 +147,9 @@ async.series([(callback)=>{
             spellDeets.level = spellDeets.level === -1 ? 0 : spellDeets.level;
             
             async.waterfall([(callback)=>{
-              var material = spellDeets.material ? cleanString(spellDeets.material) : undefined;
-              higherLvl = higherLvl ? cleanString(higherLvl) : undefined;
               cleanDesc(spellDeets.desc);
-              callback(null, spellDeets.desc, material, higherLvl);
-            }, (description, material, higherLvl, callback)=>{
+              callback(null, spellDeets.desc);
+            }, (description, callback)=>{
                 db.school.findOne({where: {name: spellDeets.school.name}}).then((school)=>{
                   if (!school) {
                     console.log(`could not find school ${spellDeets.school.name}`)
@@ -166,7 +164,7 @@ async.series([(callback)=>{
                       page: spellDeets.page,
                       range: spellDeets.range,
                       components: components,
-                      material: material,
+                      material: spellDeets.material,
                       ritual: spellDeets.ritual,
                       duration: spellDeets.duration,
                       concentration: spellDeets.concentration,
