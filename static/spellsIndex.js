@@ -1,33 +1,18 @@
 
 // List out the spellcasting classes
 for (let i = 0; i < cClasses.length; i++) {
+  var navList = document.createElement('li')
+
   var link = document.createElement('a');
   var linkText = document.createTextNode(cClasses[i].name);
   link.appendChild(linkText);
   link.href = `/spells/byClass/${cClasses[i].name}`;
+
+  navList.appendChild(link);
   
-  document.getElementById('by-class').appendChild(link);
+  document.getElementById('by-class').appendChild(navList);
 }
 
-// List out the Levels
-for (let i = 0; i <= 9; i++) {
-  console.log(`Level ${i}`);
-  var link = document.createElement('a');
-  var text = i === 0 ? 'Cantrips' : `Level ${i}`;
-  var linkText = document.createTextNode(text);
-  link.appendChild(linkText);
-  document.getElementById('by-level').appendChild(link);
-}
-
-// By School
-for (let i = 0; i < schools.length; i++ ) {
-  console.log(schools[i].name);
-  var link = document.createElement('a');
-  var linkText = document.createTextNode(schools[i].name);
-  link.appendChild(linkText);
-  link.href = `/spells/bySchool/${schools[i].name}`;    
-  document.getElementById(`by-school`).appendChild(link);
-}
 
 // Now for da spellz
 spells.forEach(spell=>{
