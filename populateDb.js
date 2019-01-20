@@ -142,7 +142,7 @@ async.series([(callback)=>{
             // Changes the formatting of some of the API call information to a more pallatable db type
             // TODO write function to save desc as markdown or html
             var higherLvl = spellDeets.higher_level ? spellDeets.higher_level.join('  ') : undefined;
-            var components = spellDeets.components.join(',');
+            var components = spellDeets.components.join(', ');
             spellDeets.ritual = spellDeets.ritual === "yes";
             spellDeets.level = spellDeets.level === -1 ? 0 : spellDeets.level;
             
