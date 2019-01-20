@@ -9,7 +9,7 @@ router.get('/', (req, res)=>{
     include: [{model: db.characterclass}, {model: db.school}],
     order: ['name']
   }).then((spells)=>{
-    console.log(`${typeof spells.schools}` .red);
+    console.log(`${typeof spells[0].material}` .red);
     res.render("spells/spellList", {spells: spells});
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
