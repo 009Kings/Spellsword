@@ -1,9 +1,10 @@
+require("dotenv").config();
+
 var async = require('async');
 var colors = require('colors');
 var db = require('./models');
 var request = require('request');
 
-// TODO: figure out why ' is coming out at â€™ (UTF-8 issue, not sure how to fix it)
 cleanDesc = (arrayOfStrings) => {
   var sqeeky = arrayOfStrings.map((string, i) => {
     if (string[0] === " ") {
@@ -22,6 +23,23 @@ cleanString = (string)=>{
   var regex = /â€™/gi;
   return string.replace(regex, "'");
 }
+
+// Populate an admin
+db.user.findOrCreate({
+  where: {
+    email: process.env.ADMIN_EMAIL
+    },
+  defaults: {
+    password: process.env.ADMIN_PASSWORD,
+    username: process.env.ADMIN_USERNAME,
+    admin: true,
+    avatar_img: 'https://imgur.com/iCj4fbg'
+  }
+}).spread((admin, created)=>{
+  if (!created) {
+    console.log(`There was a problem creating ${admin.username}!` .red);
+  }
+})
 
 async.series([(callback)=>{
   // Populates Classes
