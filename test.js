@@ -11,9 +11,9 @@ db.user.findOrCreate({
     },
   defaults: {
     password: process.env.ADMIN_PASSWORD,
-    username: 'The King',
+    username: process.env.ADMIN_USERNAME,
     admin: true,
-    avatar_img: 'https://imgur.com/iCj4fbg'
+    avatar_img: process.env.ADMIN_IMG
   }
 }).spread((admin, created)=>{
   if (created) {

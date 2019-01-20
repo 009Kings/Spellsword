@@ -5,8 +5,12 @@ var async = require('async');
 var colors = require('colors');
 
 router.get('/', (req, res)=>{
-  db.spell.findAll({order: ['name']}).then((spells)=>{
-      res.render("spells/spellList", {spells: spells});
+  db.spell.findAll({
+    include: [{model: db.characterclass}, {model: db.school}],
+    order: ['name']
+  }).then((spells)=>{
+    console.log(`${spells.characterclasses.name}` .red);
+    res.render("spells/spellList", {spells: spells});
   }).catch(err=>{
     console.log(`Bad news bears! There's neen an error getting all the spells!`);
     console.log(err);

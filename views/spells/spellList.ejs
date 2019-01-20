@@ -5,7 +5,17 @@
   <input type="text" id="nameSearch" name="nameSearch">
   <input type="submit">
 </form> -->
-<h3 id="test"></h3>
+<div id="by-class">
+  <h4>Find By Class</h4>
+</div>
+
+<div id="by-level">
+  <h4>Find By Level</h4>
+</div>
+
+<div id="by-school">
+  <h4>Find By School</h4>
+</div>
 
 <ul>
   <% spells.forEach(spell=>{ %>
@@ -14,6 +24,32 @@
 </ul>
 
 <script>
-  document.getElementById('test').textContent = `There are ${<%= spells.length %>} spells BITCH!`;
+  var spells = <%- JSON.stringify(spells) %>;
 
+  // List out the spellcasting classes
+  spells.characterclasses.forEach(cClass=>{
+    if (cClass.spellcasting) {
+      var link = document.createElement('a');
+      var linkText = document.createTextNode(cClass.name);
+      link.href = `/spells/byClass/${cClass.name}`;
+      document.getElementById(`by-class`).appendChild(link);
+    }
+  })
+
+  // List out the Levels
+  for (let i = 0; i <= 9; i++) {
+      var link = document.createElement('a');
+      var text = i === 0 ? 'Cantrips' : `Level ${i}`;
+      var linkText = document.createTextNode(text);
+      link.href = `/spells/byLevel/${i}`;
+      document.getElementById(`by-level`).appendChild(link);
+  }
+
+  // By School
+  spells.school.forEach(school=>{
+    var link = document.createElement('a');
+    var linkText = document.createTextNode(school.name);
+    link.href = `/spells/bySchool/${school.name}`;
+    document.getElementById(`by-school`).appendChild(link);
+  })
 </script>
