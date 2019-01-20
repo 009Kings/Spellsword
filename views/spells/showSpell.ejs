@@ -63,19 +63,6 @@
 <% } %>
 
 <script>
-  document.getElementById("form-shift").addEventListener("click", ()=>{
-    var regularForm = document.getElementById("regular-add");
-    var exceptionForm = document.getElementById("exception-add");
-    var btn = document.getElementById("form-shift");
-
-    if (exceptionForm.hasAttribute("class", "hidden")) {
-      regularForm.setAttribute("class", "hidden");
-      exceptionForm.removeAttribute("class", "hidden");
-      btn.textContent = "Add a Regular Spell";
-    } else {
-      regularForm.removeAttribute("class", "hidden");
-      exceptionForm.setAttribute("class", "hidden");
-      btn.textContent = "Add Exception Spell";
-    }
-  });
+  var spell = <%- spell %>;
 </script>
+<script src="/showSpell.js"></script>
