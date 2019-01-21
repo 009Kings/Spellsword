@@ -6,3 +6,9 @@ input {
 .hidden {
   display: none;
 }
+ footer {
+  left:0px;
+  bottom:0px;
+  height:35px;
+  width:100%;
+ }

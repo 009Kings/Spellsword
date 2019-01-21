@@ -1,20 +1,20 @@
-<nav class="db dt-l w-100 border-box pa3 ph5-l">
+<nav class="fixed bb b--black-40 bg-white-90 db dt-l w-100 border-box pa3 ph5-l">
   <a class="db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l" href="/" title="Home">
     <img src="http://tachyons.io/img/logo.jpg" class="dib w2 h2 br-100" alt="Spellsword">
   </a>
   <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
-    <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/" title="Home">Home</a>
-    <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/spells" title="How it Works">Spells</a>
+    <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/" title="Home">Home</a>
+    <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/spells" title="How it Works">Spells</a>
     <% if (!user) { %>
-      <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/auth/login" title="Login">Log In</a>
-      <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/auth/signup" title="signup">Sign Up</a>
+      <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/auth/login" title="Login">Log In</a>
+      <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/auth/signup" title="signup">Sign Up</a>
     <% } else { %>
       <% if (user.admin) { %>
-        <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/profile/admin" title="admin-page">Admin Page</a>
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/profile/admin" title="admin-page">Admin Page</a>
       <% }  %>
-        <a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="/profile" title="Profile">View Spellbooks</a>
-        <a class="link dim dark-gray f6 f5-l dib" href="/profile/spellbook/new" title="new-spellbook">Create New Spellbook</a>
-        <a class="link dim dark-gray f6 f5-l dib" href="/auth/logout" title="logout">Logout</a>
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/profile" title="Profile">View Spellbooks</a>
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/profile/spellbook/new" title="new-spellbook">Create New Spellbook</a>
+        <a class="link dim dark-gray f6 f5-l dib mr3 mr2-l" href="/auth/logout" title="logout">Logout</a>
     <% } %>
   </div>
     
