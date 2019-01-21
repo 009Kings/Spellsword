@@ -24,7 +24,6 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
-      avatar_img: Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

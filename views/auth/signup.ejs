@@ -1,29 +1,18 @@
-<h2>Sign Up!</h2>
+<h2 class="f3 lh-title tc tl-ns mt6 ma3-ns">Sign Up!</h2>
 
+<form action="/auth/signup" method="post" class="measure pa4 black-80">
 
-<div class="">
-  <form action="/auth/signup" method="post">
-    </div>
-    <div class="">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" value="<%= oldInfo ? oldInfo.email : '' %>">
-    </div>
-    <div class="">
-      <label for="new-username">Username:</label>
-      <input type="text" name="username" id="new-username" value="<%= oldInfo ? oldInfo.username : '' %>">
-    </div>
-    <div class="">
-      <label for="avatar_img">Avatar Image Url:</label>
-      <input type="url" name="avatar_img" id="avatar_img"  value="<%= oldInfo ? oldInfo.avatar_img : '' %>">
-    </div>
-    <div class="">
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password">
-    </div>
-    <div class="">
-      <label for="password-check">Verify Password:</label>
-      <input type="password" name="passwordCheck" id="password-check">
-    </div>
-    <button class="" type="submit" name="action">Sign Up</button>
-  </form>
-</div>
+  <label class="f6 b db mb2" for="email">Email:</label>
+  <input class="input-reset ba b--black-20 pa1 mb2 db w-100" type="email" name="email" id="email" value="<%= oldInfo ? oldInfo.email : '' %>">
+
+  <label class="f6 b db mb2" for="new-username">Username:</label>
+  <input class="input-reset ba b--black-20 pa1 mb2 db w-100" type="text" name="username" id="new-username" value="<%= oldInfo ? oldInfo.username : '' %>">
+
+  <label class="f6 b db mb2" for="password">Password:</label>
+  <input class="input-reset ba b--black-20 pa1 mb2 db w-100" type="password" name="password" id="password">
+
+  <label class="f6 b db mb2" for="password-check">Verify Password:</label>
+  <input class="input-reset ba b--black-20 pa1 mb2 db w-100" type="password" name="passwordCheck" id="password-check">
+
+  <button class="f6 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib dark-green b--dark-green"  type="submit" name="action">Sign Up</button>
+</form>

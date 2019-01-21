@@ -37,7 +37,7 @@ var spellIndex = function(){
   // Lets initialise this shit!
   function init(){
     // Load the handles
-    STATE.handles.inputs.byClassList = document.getElementById('by-class');
+    STATE.handles.inputs.byClassList = document.querySelector('.toggle-hidden');
     STATE.handles.inputs.nameContains = document.getElementById('name-contains');
     STATE.handles.outputs.spellListWrapper = document.getElementById('spell-list');
 
@@ -53,7 +53,12 @@ var spellIndex = function(){
   }
 
   function toggleFindByClass() {
-    console.log('Clicked!');
+    var classes = document.getElementById('class-list');
+    if (classes.className.includes('hidden')) {
+      classes.classList.remove('hidden');
+    } else {
+      classes.classList.add('hidden');
+    }
   }
 
   function tick() {
@@ -72,18 +77,19 @@ var spellIndex = function(){
   function render() {
     // Make a static list by class
     // List out the spellcasting classes
+    var navList = document.createElement('div')
+    navList.classList = 'db dtc-l v-mid w-100 w-80-l tc tl-l';
     for (let i = 0; i < STATE.characterClasses.length; i++) {
-      var navList = document.createElement('li')
 
       var link = document.createElement('a');
+      link.classList = 'link dim dark-gray f6 f5-l dib mr3 mr3-l';
       var linkText = document.createTextNode(STATE.characterClasses[i].name);
       link.appendChild(linkText);
       link.href = `/spells/byClass/${STATE.characterClasses[i].name}`;
 
       navList.appendChild(link);
-      
-      document.getElementById('by-class').appendChild(navList);
     }
+    document.getElementById('class-list').appendChild(navList);
 
     // Burn it down
     var container = STATE.handles.outputs.spellListWrapper;
@@ -111,12 +117,13 @@ var spellIndex = function(){
     // First comes the article
     var spellList = document.createElement('article');
     // This is what Tachyons told me to do
-    spellList.className = "center mw5 mw6-ns br3 ba b--black-10 mv4";
+    spellList.className = "center shadow-4bg-light-blue mw5 mw6-ns br3 ba b--black-10 mv3";
 
     // Then comes the title
     var title = document.createElement('h1');
-    title.className = 'f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3';
+    title.className = 'f4 bg-blue br3 br--top black-60 mv0 pv2 ph3';
     var link = document.createElement('a');
+    link.className= "link dim near-black"
     link.href = `/spells/${spell.id}`;
     link.textContent = spell.name;
     title.appendChild(link);
@@ -128,16 +135,16 @@ var spellIndex = function(){
 
     ['level', 'school'].forEach(key=>{
       var dList = document.createElement('dl');
-      dList.className = 'f6 lh-title mv2 dib pa2';
+      dList.className = 'f6 lh-title mv2 dib pr2';
 
       var dTitle = document.createElement('dt');
-      dTitle.className = 'dib b pa2';
+      dTitle.className = 'dib b pr2';
       var displayName = key.charAt(0).toUpperCase() + key.slice(1)
       dTitle.textContent = displayName;
       dList.appendChild(dTitle);
 
       var dDesc = document.createElement('dd');
-      dDesc.className = 'dib ml0 gray';
+      dDesc.className = 'dib ml0 dark-gray pr2';
       dDesc.textContent = spell[key] === 0 ? 'Cantrip' : spell[key];
       dList.appendChild(dDesc);
 
@@ -146,15 +153,15 @@ var spellIndex = function(){
     
     // Now for the Classes
     var schoolSection = document.createElement('dl');
-    schoolSection.className = 'f6 lh-title mv2 dib pa3';
+    schoolSection.className = 'f6 lh-title mv2 dib pr2';
     
     var schoolTitle = document.createElement('dt');
-    schoolTitle.className = 'dib b pa2';
+    schoolTitle.className = 'dib b pr2';
     schoolTitle.textContent = spell.classes > 1 ? 'Schools' : 'School';
     schoolSection.appendChild(schoolTitle);
     
     var schoolDesc = document.createElement('dd');
-    schoolDesc.className = 'dib ml0 gray';
+    schoolDesc.className = 'dib ml0 dark-gray pr2';
     schoolDesc.textContent = spell.classes.join(', ');
     schoolSection.appendChild(schoolDesc);
     

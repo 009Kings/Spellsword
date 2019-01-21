@@ -28,14 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    },
-    avatar_img: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: {
-          msg: 'Must be a valid Url'
-        }
-      }
     }
   }, {
     hooks: {
