@@ -7,6 +7,7 @@ var spellIndex = function(){
   function processSpells(spells){
     return spells.map((spell)=> {
       return {
+        id: spell.id,
         name: spell.name,
         level: spell.level,
         classes: spell.characterclasses.map(c=>c.name),
@@ -115,7 +116,10 @@ var spellIndex = function(){
     // Then comes the title
     var title = document.createElement('h1');
     title.className = 'f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3';
-    title.textContent = spell.name;
+    var link = document.createElement('a');
+    link.href = `/spells/${spell.id}`;
+    link.textContent = spell.name;
+    title.appendChild(link);
     spellList.appendChild(title);
 
     // Then comes the content with a two iterator forEach
@@ -124,17 +128,17 @@ var spellIndex = function(){
 
     ['level', 'school'].forEach(key=>{
       var dList = document.createElement('dl');
-      dList.className = 'f6 lh-title mv2 dib pa3';
+      dList.className = 'f6 lh-title mv2 dib pa2';
 
       var dTitle = document.createElement('dt');
-      dTitle.className = 'dib b';
+      dTitle.className = 'dib b pa2';
       var displayName = key.charAt(0).toUpperCase() + key.slice(1)
       dTitle.textContent = displayName;
       dList.appendChild(dTitle);
 
       var dDesc = document.createElement('dd');
       dDesc.className = 'dib ml0 gray';
-      dDesc.textContent = spell[key];
+      dDesc.textContent = spell[key] === 0 ? 'Cantrip' : spell[key];
       dList.appendChild(dDesc);
 
       cardBody.appendChild(dList);
@@ -145,7 +149,7 @@ var spellIndex = function(){
     schoolSection.className = 'f6 lh-title mv2 dib pa3';
     
     var schoolTitle = document.createElement('dt');
-    schoolTitle.className = 'dib b';
+    schoolTitle.className = 'dib b pa2';
     schoolTitle.textContent = spell.classes > 1 ? 'Schools' : 'School';
     schoolSection.appendChild(schoolTitle);
     

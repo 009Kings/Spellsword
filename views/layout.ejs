@@ -6,36 +6,23 @@
   <title>SpellSword</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <nav class="">
-        <div class="">
-          <a href="/" class="">SpellSword</a>
-          <ul>
-            <li><a href="/spells">List of Spells</a></li>
-            <% if(!user){ %>
-              <li><a href="/auth/signup">Signup</a></li>
-              <li><a href="/auth/Login">Login</a></li>
-            <% } else { %>
-              <% if (user.admin) {%>
-                <li><a href="/profile/admins">Admin Page</a></li>
-              <% } %>
-              <li><a href="/profile">Profile</a></li>
-              <li>Hello <%= user.username %></li>
-              <li><a href="/profile/spellbook/new">Create a new Spellbook</a></li>
-              <li><a href="/auth/logout">Logout</a></li>
-            <% } %>
-          </ul>
-        </div>
-    </nav>
+<%- include partials/nav %> 
   <main>
     <div class="">
       <% include partials/alerts %>
-      <%- body %>
+      <section class="pa3 pa5-ns bt b--black-40 black-70 bg-white">
+        <%- body %>
+      </section>
     </div>
   </main>
+  <footer class="pv4 ph3 ph5-ns tc">
+    <%- include partials/footer %>
+  </footer>
   <script src="/main.js"></script>
 </body>
 </html>

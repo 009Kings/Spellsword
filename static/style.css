@@ -6,8 +6,3 @@ input {
 .hidden {
   display: none;
 }
-
-.spell-card {
-  border: 2px solid black;
-  margin: 10px;
-}
