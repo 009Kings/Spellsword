@@ -1,68 +1,87 @@
-<h1><%= spell.name %></h1>
-<% if(spell.level > 0){ %>
-  <h3>Level <%= spell.level %> <%= spell.school.name %></h3>
-<% } else { %>
-    <h3><%= spell.school.name %> Cantrip</h3>
-<% } %>
-<% if(spell.ritual){ %>
-  <p><em>Ritual</em></p>
-<% }%>
+<div id="spell-container" class="mt5 pt3 ma1-ns pt1-ns">
 
-<p><strong>Casting Time: </strong> <%= spell.casting_time%></p>
-<p><strong>Duration: </strong> <%= spell.duration %><% if(spell.concentration){ %>, <em>Concentration</em>
-<% } %></p>
-<p><strong>Components: </strong> <%= spell.components %> <% if(spell.material){ %>
-  (<%= spell.material %>)
-<% } %></p>
-<p><strong>Range: </strong><%= spell.range %></p>
-<p><%= spell.desc %></p>
-<% if(spell.higher_level){ %>
-  <p><%= spell.higher_level %></p>
-<% } %>
+<dl class="f6 lh-title mv2">
 
-<% spell.characterclasses.forEach(characterclass=>{ %>
-  <p><em><%= characterclass.name %></em></p>
-<% }) %>
+</div>
 
-<% if(user && spellbooks.length > 0){ %>
-  <% if(relevantSpellbooks.length > 0){ %>
-    <form action="/profile/spellbook/add" method="post" id="regular-add">
-      <select name="spellbookId" id="spellbookId">
-        <% relevantSpellbooks.forEach(spellbook=>{ %> 
-          <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
-        <% }) %>
-      </select>
-      <input type="hidden" id="isException" name="isException" value="false">
-      <input type="hidden" name="spellId" value="<%= spell.id %>">
-      <button type="submit">Add to Spellbook!</button>
-    </form>
-    <% } else { %>
-    <h5>You don't have any characters that can cast this spell!</h5>
-    <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
+<div id="spellbooks" class="mb3">
+  <% if(user && spellbooks.length > 0){ %>
+    <% if(relevantSpellbooks.length > 0){ %>
+      <div class="tc tl-ns">
+        <form action="/profile/spellbook/add" method="post" id="regular-add">
+          <div>
+            <select name="spellbookId" id="spellbookId" class="mv1 ml4">
+              <% relevantSpellbooks.forEach(spellbook=>{ %> 
+                <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
+              <% }) %>
+            </select>
+            <input type="hidden" id="isException" name="isException" value="false">
+            <input type="hidden" name="spellId" value="<%= spell.id %>">
+          </div>
+          <input type="submit" class="f6 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib dark-green bg-white b--dark-green" value="Add to Spellbook!">
+        </form>
+      </div>
+      <% } else { %>
+      <h5>You don't have any characters that can cast this spell!</h5>
+      <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
+    <% } %>
+    <p>Click this button if you are adding this spell to a spellbook through something other than basic spellcasting</p>
+    <p><em>(i.e. Tiefling's Hellish Rebuke feature, a Warlock's Mystic Arcanum, or a DM homerule)</em></p>
+    <div class="center">
+      <a id="form-shift" class="tl-ns f6 link dim br2 ba bw1 ph3 pv2 mb2 dib dark-pink" href="#0">Add an Exception Spell</a>
+    </div>
+
+    <div class="tc tl-ns">
+      <form action="/profile/spellbook/add" method="post" id="exception-add" class="hidden">
+        <div>
+          <select name="spellbookId" id="spellbookId" class="mv1 ml4">
+            <% spellbooks.forEach(spellbook=>{ %> 
+              <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
+            <% }) %>
+          </select>
+          <input type="hidden" id="isException" name="isException" value="true">
+          <input type="hidden" name="spellId" value="<%= spell.id %>">
+        </div>
+        <input type="submit" class="f6 grow no-underline br-pill ba bw1 ph3 pv2 mb2 dib dark-red bg-white b--dark-red" value="Add to Spellbook!">
+      </form>
+    </div>
+
+  <% } else if (user) { %>
+    <h5 class="dark-red fw4">Looks like you don't have any spellbooks!</h5>
+    <p><a href="/profile/spellbook/new" class="f4 fw6 db dark-gray link hover-blue">Create a new Character!</a></p>
+  <% } else { %>
+    <p><a href="/auth/signup" class="f4 fw6 db dark-gray link hover-blue">Sign Up to save this spell!</a></p>
+    <p><a href="/auth/login" class="f4 fw6 db dark-gray link hover-green">Or Login</a></p>
   <% } %>
-  <p>Click this button if you are adding this spell to a spellbook through something other than basic spellcasting</p>
-  <p><em>(i.e. Tiefling's Hellish Rebuke feature, a Warlock's Mystic Arcanum, or a DM homerule)</em></p>
-  <button id="form-shift">Add an Exception Spell</button>
-  <form action="/profile/spellbook/add" method="post" id="exception-add" class="hidden">
-    <select name="spellbookId" id="spellbookId">
-    <% spellbooks.forEach(spellbook=>{ %> 
-      <option value="<%= spellbook.id %>"><%= spellbook.name %></option>
-    <% }) %>
-    </select>
-    <input type="hidden" id="isException" value="false">
-    <input type="hidden" name="spellId" value="<%= spell.id %>">
-    <input type="hidden" id="isException" name="isException" value="true">
-    <input type="submit" value="Add to Spellbook!">
-  </form>
-<% } else if (user) { %>
-  <h5>Looks like you don't have any spellbooks.</h2>
-  <p><a href="/profile/spellbook/new">Create a new Character!</a></p>
-<% } else { %>
-  <h5><a href="/auth/signup">Sign Up to save this spell!</a></h2>
-  <p><a href="/auth/login">Or Login</a></p>
-<% } %>
+</div>
+
 
 <script>
-  var spell = <%- spell %>;
+  var SPELL = <%- JSON.stringify(spell) %>;
+  <% if (user) { %>
+    var USER = true;
+    var SPELLBOOKS = <%- JSON.stringify(spellbooks) %>;
+    var RELEVANT_SPELLBOOKS = <%- JSON.stringify(relevantSpellbooks) %>
+
+
+    // Button Toggle : To Refactor in the future
+    document.getElementById("form-shift").addEventListener("click", ()=>{
+      var regularForm = document.getElementById("regular-add");
+      var exceptionForm = document.getElementById("exception-add");
+      var btn = document.getElementById("form-shift");
+    
+      if (exceptionForm.hasAttribute("class", "hidden")) {
+        regularForm.setAttribute("class", "hidden");
+        exceptionForm.removeAttribute("class", "hidden");
+        btn.textContent = "Add a Regular Spell";
+      } else {
+        regularForm.removeAttribute("class", "hidden");
+        exceptionForm.setAttribute("class", "hidden");
+        btn.textContent = "Add Exception Spell";
+      }
+    });
+  <% } else { %>
+    var USER = false;
+  <% } %>
 </script>
 <script src="/showSpell.js"></script>

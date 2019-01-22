@@ -153,7 +153,7 @@ router.delete('/spellbook', loggedIn, (req, res)=>{
   })
 })
 
-router.get('/admins', isAdmin, (req, res) => {
+router.get('/admin', isAdmin, (req, res) => {
   res.render('profile/admin');
 });
 

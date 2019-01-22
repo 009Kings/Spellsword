@@ -157,7 +157,7 @@ var spellIndex = function(){
     
     var schoolTitle = document.createElement('dt');
     schoolTitle.className = 'dib b pr2';
-    schoolTitle.textContent = spell.classes > 1 ? 'Schools' : 'School';
+    schoolTitle.textContent = spell.classes > 1 ? 'Classes' : 'Class';
     schoolSection.appendChild(schoolTitle);
     
     var schoolDesc = document.createElement('dd');
