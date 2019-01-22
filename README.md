@@ -126,6 +126,8 @@ Finish the Readme, additional styling, and implementation of stretch goals.
 ##### The Execution:
 **Friday** was spent on filtering and accomodating for the enevitable exceptions to the overall logic of spells (__WARLOCKS WHY!?__). Add a little Readme spice up and some headbutting aginst UTF 8 and you've got a solid Friday.
 
+**The Final Weekend** was all about refactoring code, figuring out Tachyons, and realising how much I can get done when I'm not sick.
+
 ## It's Not Safe to Go Alone, Take this
 
 #### Technologies used:
@@ -137,7 +139,11 @@ Finish the Readme, additional styling, and implementation of stretch goals.
 **Database:**
 * PostgreSQL
 
+**Framework**
+* [Tachyons](http://tachyons.io)
+
 **Node and Modules:**
+* colors
 * express
 * bcrypt
 * body-parser
