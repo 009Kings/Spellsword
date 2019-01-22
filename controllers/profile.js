@@ -14,8 +14,10 @@ router.get('/', loggedIn, (req, res) => {
     where: {email: req.user.email},
     include: [db.spellbook]
   }).then(user=>{
-    //console.log(user.spellbooks .magenta)
-    res.render('profile/profile', { user: user });
+    // add all the classes for the create
+    db.characterclass.findAll().then(cClasses=>{
+      res.render('profile/profile', { user: user, classes: cClasses });
+    })
   }).catch(err=>{
     console.log(`Bad news bears, there's an error in the profile main!` .magenta);
     console.log(err);

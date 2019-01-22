@@ -1,16 +1,21 @@
-<h1>Welcome <%= user.username %></h1>
-
-<div class="">
-  <div class="">
-    <div>
-      <img src="<%= user.avatar_img %>" alt="<%= user.username %>'s avatar picture'">
-    </div>
-  </div>
-  <div class="">
-    <h3><%= user.username %> Spellbooks</h3>
-    <% user.spellbooks.forEach(spellbook=>{ %>
-      <p><a href="/profile/spellbook/<%= spellbook.id %>"><%= spellbook.name %></a></p>
-      <p>Level <%= spellbook.level %> <%= spellbook.characterClassesId %></p>
-    <% })%>
-  </div>
+<div id="create-spellbook" class="hidden aspect-ratio--object bg-blue">
+  <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-black fr ma2" href="#0" id="close-create">X</a>
+  <%- include create %>
 </div>
+
+<h1 class="f3 f2-ns lh-title tc mt6 ma3-ns">Welcome <%= user.username %></h1>
+
+<div class="tc fr-ns">
+  <a class="f5 f4-ns grow no-underline br2 ba bw2 ph3 pv2 mb2 dib dark-green" href="#0" id="open-create">Create a New Spellbook</a>
+</div>
+
+<h4 id="spellbook-num" class="f4 tc fl-ns f3-ns ma2"></div>
+
+<div id="spellbook-container" class="flex flex-wrap justify-around">
+</div>
+
+<script>
+  var USER = <%- JSON.stringify(user) %>;
+  var CLASSES = <%- JSON.stringify(classes) %>
+</script>
+<script src="profile.js"></script>

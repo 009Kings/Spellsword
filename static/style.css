@@ -1,3 +1,12 @@
+.alert-card {
+  background: rgba(44, 44, 44, 0.61);
+}
+
+.message {
+  top: 25%;
+  width: 100%;
+  position: absolute;
+}
 
 input {
   padding: 3px;

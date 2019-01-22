@@ -1,34 +1,26 @@
 <% if(alerts.error) {%>
-  <div class="alert-card">
-    <div class="">
-      <div class="">
-        <div class="">
-          <span class="">Error</span>
-          <% alerts.error.forEach(function(msg){ %>
-            <p><%= msg %></p>
-          <% }); %>
-        </div>
-        <div class="">
-          <p class="closeable">Close</p>
-        </div>
+  <div class="alert-card aspect-ratio--object bg-red-40">
+    <div class="message pa2 pa3-ns bg-light-red">
+      <p class="f5 tc dark-red">Error</p>
+      <% alerts.error.forEach(function(msg){ %>
+        <p class="f5 tc light-gray"><%= msg %></p>
+      <% }); %>
+      <div class="tc">
+        <p class="closeable f6 link dim br2 ph3 pv2 mb2 dib light-gray bg-red">Close</p>
       </div>
     </div>
   </div>
 <% } %>
 
 <% if(alerts.success) {%>
-  <div class="alert-card">
-    <div class="">
-      <div class="">
-        <div class="">
-          <span class="">Success</span>
-          <% alerts.success.forEach(function(msg){ %>
-            <p><%= msg %></p>
-          <% }); %>
-        </div>
-        <div class="">
-          <p class="closeable">Close</p>
-        </div>
+  <div class="alert-card aspect-ratio--object bg-green-40">
+    <div class="message pa2 pa3-ns bg-green">
+    <p class="f5 tc dark-gray">Success</p>
+      <% alerts.success.forEach(function(msg){ %>
+        <p class="f5 tc dark-gray"><%= msg %></p>
+      <% }); %>
+      <div class="tc">
+        <a class="closeable f6 link dim br2 ph3 pv2 mb2 dib light-gray bg-dark-green" href="#0">Close</a>
       </div>
     </div>
   </div>
@@ -41,4 +33,3 @@
     })
   });
 </script>
-
