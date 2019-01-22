@@ -1,4 +1,4 @@
-<h1 class="mt6 ma3-n"><%= cClass %> Spells</h1>
+<h1 class="mt6 mt2-ns"><%= cClass %> Spells</h1>
 
 <h3>Cantrips</h3>
 <ul id="level-0-list"></ul>
@@ -36,6 +36,7 @@
     console.log(spell.level, spell.name);
     var HTSPell = document.createElement('li');
     var link = document.createElement('a');
+    link.classList = "link dim dark-blue f6 f5-l dib mr3 mr3-l pb1"
     var linkText = document.createTextNode(spell.name);
     link.appendChild(linkText);
     link.href = `/spells/${spell.id}`;
