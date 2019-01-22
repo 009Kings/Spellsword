@@ -10,7 +10,9 @@
       <label for="characterclass"  class="dib f5 fw7 lh-copy">Class: </label>
       <select name="characterclass" id="characterclass" class="b pa2 input-reset ba bg-light-gray">
       <% classes.forEach(characterclass=>{ %>
-        <option value="<%= characterclass.name %>"><%= characterclass.name %></option>
+        <% if (characterclass.spellcasting) { %>
+          <option value="<%= characterclass.name %>"><%= characterclass.name %></option>
+        <% } %>
       <% }) %>
       </select>
     </div>

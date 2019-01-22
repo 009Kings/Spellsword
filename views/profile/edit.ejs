@@ -1,13 +1,18 @@
-<h1>Edit <%= spellbook.name %></h1>
+<h1 class="mt5 mt1-ns pt5 pt1-ns">Edit <%= spellbook.name %></h1>
 
 <form action="/profile/spellbook/?_method=PUT" method="post">
   <div>
-  <label for="name">Character Name: </label>
-  <input type="text" name="name" id="name" value="<%= spellbook.name %>">
-  <label for="level">Level: </label>
-  <input type="number" name="level" id="level" value="<%= spellbook.level %>">
-  <label for="characterclass">Class: </label>
-  <select name="characterclass" id="characterclass" value="<%= spellbook.name %>">
+    <label for="name">Character Name: </label>
+    <input type="text" name="name" id="name" value="<%= spellbook.name %>">
+  </div>
+  <div>
+    <label for="level">Level: </label>
+    <input type="number" name="level" id="level" value="<%= spellbook.level %>">
+  </div>
+  <div>
+    <label for="characterclass">Class: </label>
+    <select name="characterclass" id="characterclass" value="<%= spellbook.name %>">
+  </div>
   <% classes.forEach(characterclass=>{ %>
     <% if (spellbook.characterclass.name === characterclass.name) { %>
       <option value="<%= characterclass.name %>" selected="selected"><%= characterclass.name %></option>
@@ -16,11 +21,10 @@
     <% } %>
   <% }) %>
   </select>
-  </div>
  
   <div>
     <input type="hidden" name="spellbookId" value="<%= spellbook.id %>">
-    <input type="submit" value="Edit <%= spellbook.name %>">
+    <input type="submit" value="Edit <%= spellbook.name %>" class="link dim green f5 f5-l dib mr3 mr3-l fw6">
   </div>
 </form>
 
@@ -28,5 +32,5 @@
 
 <form action="/profile/spellbook/?_method=DELETE" method="post">
   <input type="hidden" name="spellbookId" value="<%= spellbook.id %>">
-  <input type="submit" value="Delete this Character">
+  <input type="submit" value="Delete this Character" class="link dim dark-red f5 f5-l dib mr3 mr3-l fw6">
 </form>

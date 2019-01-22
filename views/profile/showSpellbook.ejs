@@ -1,26 +1,26 @@
-<h1>Spellbook for <%= spellbook.name %></h1>
+<h1 class="mt5 mt1-ns pt5 pt1-ns">Spellbook for <%= spellbook.name %></h1>
+<h5><a href="/profile/spellbook/<%= spellbook.id %>/edit" class="link dim dark-red f5 f5-l dib mr3 mr3-l fr">Edit <%= spellbook.name %></a></h5>
 <h3>Level <%= spellbook.level %> <%= spellbook.characterclass.name %></h3>
-<h5><a href="/profile/spellbook/<%= spellbook.id %>/edit">Edit <%= spellbook.name %></a></h5>
 
 <p>Spells Known: <%= spellbook.known_spells %></p>
 
 <h4>Cantrips <span>Known: <%= spellbook.cantrips_known %></span></h4>
-<a href="/spells">Add Spells</a>
+<a href="/spells" class="link dim dark-green f6 f5-l dib mr3 mr3-l">Add Spells</a>
 <ul>
   <% spellbook.spells.forEach(spell=>{ %>
     <% if(spell.level === 0){ %>
-      <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+      <li><a href="/spells/<%= spell.id %>" class="link dim dark-gray f6 f5-l dib mr3 mr3-l"><%= spell.name %></a></li>
     <% } %>
   <% }) %>
 </ul>
 <hr>
 
 <h4>Level 1 <span>Slots: <%= spellbook.level_1_slots %></span></h4>
-<a href="/spells">Add Spells</a>
+<a href="/spells" class="link dim dark-green f6 f5-l dib mr3 mr3-l">Add Spells</a>
 <ul>
   <% spellbook.spells.forEach(spell=>{ %>
     <% if(spell.level === 1){ %>
-      <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+      <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
     <% } %>
   <% }) %>
 </ul>
@@ -28,11 +28,11 @@
 
 <% if (spellbook.level_2_slots > 0) { %>
   <h4>Level 2 <span>Slots: <%= spellbook.level_2_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 2){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -41,11 +41,11 @@
 
 <% if (spellbook.level_3_slots > 0) { %>
   <h4>Level 3 <span>Slots: <%= spellbook.level_3_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 3){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -55,11 +55,11 @@
 
 <% if (spellbook.level_4_slots > 0) { %>
   <h4>Level 4 <span>Slots: <%= spellbook.level_4_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 4){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -68,11 +68,11 @@
 
 <% if (spellbook.level_5_slots > 0) { %>
   <h4>Level 5 <span>Slots: <%= spellbook.level_5_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 5){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -81,11 +81,11 @@
 
 <% if (spellbook.level_6_slots > 0) { %>
   <h4>Level 6 <span>Slots: <%= spellbook.level_6_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 6){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -94,11 +94,11 @@
 
 <% if (spellbook.level_7_slots > 0) { %>
   <h4>Level 7 <span>Slots: <%= spellbook.level_7_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 7){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -107,11 +107,11 @@
 
 <% if (spellbook.level_8_slots > 0) { %>
   <h4>Level 8 <span>Slots: <%= spellbook.level_8_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 8){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
@@ -121,11 +121,11 @@
 
 <% if (spellbook.level_9_slots > 0) { %>
   <h4>Level 9 <span>Slots: <%= spellbook.level_9_slots %></span></h4>
-  <a href="/spells">Add Spells</a>
+  <a class="link dim dark-green f6 f5-l dib mr3 mr3-l" href="/spells">Add Spells</a>
   <ul>
     <% spellbook.spells.forEach(spell=>{ %>
       <% if(spell.level === 9){ %>
-        <li><a href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
+        <li><a class="link dim dark-gray f6 f5-l dib mr3 mr3-l" href="/spells/<%= spell.id %>"><%= spell.name %></a></li>
       <% } %>
     <% }) %>
   </ul>
