@@ -64,7 +64,7 @@ var profile = function(){
   }
 
   function addClassName(spellbook) {
-    return CLASSES[spellbook.characterclassId -1].name
+    return CLASSES[spellbook.characterclassId-1].name
   }
 
   function toggleHide(idName, hiddenState) {
@@ -96,14 +96,14 @@ var profile = function(){
     
     // TODO: name docs based on classes so icon.src = `../assets/${spellbook.characterclass.name}`
     var icon = document.createElement('img');
-    icon.className = 'br-100 h4 w4 dib ba b--black-05 pv2';
-    icon.src = 'http://placekitten.com/150/150';
-    icon.alt = 'Placeholder image of a kitten';
+    icon.className = 'h4 w4 dib ba b--white pv2';
+    icon.src = CLASSES[spellbook.characterclassId-1].spellcasting ? `./assets/${spellbook.className}.svg` : 'http://placekitten.com/150/150';
+    icon.alt = `Icon for ${spellbook.className}`;
     innerCardDiv.appendChild(icon);
     
     var summary = document.createElement('h2');
     summary.className = 'f5 fw4 gray mt0';
-    summary.textContent = `Level ${spellbook.level}`;
+    summary.textContent = `Level ${spellbook.level} ${spellbook.className}`;
     innerCardDiv.appendChild(summary);
     
     return spellbookCard;

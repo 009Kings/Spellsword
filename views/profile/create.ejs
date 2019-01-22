@@ -1,15 +1,19 @@
-<h1>Create A Spellbook</h1>
+<h1 class="t2 tc dark-gray">Create A Spellbook</h1>
 
-<form action="/profile/add" method="post">
-  <label for="name">Character Name: </label>
-  <input type="text" name="name" id="name">
-  <label for="level">Level: </label>
-  <input type="number" name="level" id="level">
-  <label for="characterclass">Class: </label>
-  <select name="characterclass" id="characterclass">
-  <% classes.forEach(characterclass=>{ %>
-    <option value="<%= characterclass.name %>"><%= characterclass.name %></option>
-  <% }) %>
-  </select>
-  <input type="submit" value="Create Character!">
-</form>
+<article class="pa4 black-80">
+  <form action="/profile/add" method="post">
+    <label for="name" class="db f5 fw7 lh-copy">Character Name: </label>
+    <input type="text" name="name" id="name" class="b pa2 input-reset ba bg-light-gray">
+    <label for="level" class="db f5 fw7 lh-copy">Level: </label>
+    <input type="number" name="level" id="level"class="b pa2 input-reset ba bg-light-gray">
+    <div class="mt2">
+      <label for="characterclass"  class="dib f5 fw7 lh-copy">Class: </label>
+      <select name="characterclass" id="characterclass" class="b pa2 input-reset ba bg-light-gray">
+      <% classes.forEach(characterclass=>{ %>
+        <option value="<%= characterclass.name %>"><%= characterclass.name %></option>
+      <% }) %>
+      </select>
+    </div>
+    <div class="mt3"><input class="b ph3 pv2 input-reset ba b--black bg-light-gray grow pointer f6" type="submit" value="Create Character!"></div>
+  </form>
+</article>

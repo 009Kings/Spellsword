@@ -1,6 +1,8 @@
-<div id="create-spellbook" class="hidden aspect-ratio--object bg-blue">
-  <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-black fr ma2" href="#0" id="close-create">X</a>
-  <%- include create %>
+<div id="create-spellbook" class="hidden aspect-ratio--object bg-washed-blue">
+  <a class="f6 grow no-underline br-pill ph3 pv2 mb2 dib washed-red bg-black fr ma2" href="#0" id="close-create">X</a>
+  <div class="tc">
+    <%- include create %>
+  </div>
 </div>
 
 <h1 class="f3 f2-ns lh-title tc mt6 ma3-ns">Welcome <%= user.username %></h1>
@@ -19,3 +21,4 @@
   var CLASSES = <%- JSON.stringify(classes) %>
 </script>
 <script src="profile.js"></script>
+

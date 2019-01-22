@@ -15,7 +15,7 @@ router.get('/', loggedIn, (req, res) => {
     include: [db.spellbook]
   }).then(user=>{
     // add all the classes for the create
-    db.characterclass.findAll().then(cClasses=>{
+    db.characterclass.findAll({ order: ['id'] }).then(cClasses=>{
       res.render('profile/profile', { user: user, classes: cClasses });
     })
   }).catch(err=>{
